@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var user = TempData["user"] as Account;
+}
+
+
+<!DOCTYPE html>
 <html lang="zxx">
 <head>
     <meta charset="UTF-8" />
@@ -107,7 +112,11 @@
                                 <a href="#"><i class="fa fa-tripadvisor"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                             </div>
-                            <a href="/account/login" class="bk-btn">Login Now</a>
+                            @if (TempData["user"] == null)
+                            {
+                                <a href="/account/login" class="bk-btn">Login Now</a>
+                            }
+                            
                             <div class="language-option">
                                 <span>EN <i class="fa fa-angle-down"></i></span>
                                 <div class="flag-dropdown">

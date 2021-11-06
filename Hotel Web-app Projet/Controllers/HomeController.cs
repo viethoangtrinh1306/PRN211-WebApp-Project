@@ -1,6 +1,8 @@
 ﻿using Hotel_Web_app_Projet.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,6 +22,10 @@ namespace Hotel_Web_app_Projet.Controllers
 
         public IActionResult Index()
         {
+            if(HttpContext.Session.GetString("user") != null)
+            {
+                TempData["user"] = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("user"));
+            }
             return View();
         }
 

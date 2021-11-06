@@ -2,6 +2,7 @@
 @{
     Layout = "_EmptyLayout";
 }
+@model Hotel_Web_app_Projet.Models.Account
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,14 +33,14 @@
 
                     <div class="signin-form">
                         <h2 class="form-title">Login</h2>
-                        <form method="POST" class="register-form" id="login-form">
+                        <form asp-controller="Account" asp-action="login" method="POST" class="register-form" id="login-form">
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" placeholder="Your Name" />
+                                <input type="text"  id="your_name" placeholder="Your Name" asp-for="Username" />
                             </div>
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="your_pass" id="your_pass" placeholder="Password" />
+                                <input type="password"  id="your_pass" placeholder="Password"  asp-for="Password"/>
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
