@@ -1,0 +1,114 @@
+﻿@{
+    var details = ViewBag.RoomDetails;
+}
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Our Rooms</h2>
+                    <div class="bt-option">
+                        <a href="./home.html">Home</a>
+                        <span>Rooms</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+<!-- Room Details Section Begin -->
+<section class="room-details-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="room-details-item">
+                    <img src="@details.Image" alt="">
+                    <div class="rd-text">
+                        <div class="rd-title">
+                            <h3>Room @details.Name</h3>
+                            <div class="rdt-right">
+                                <div class="rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star-half_alt"></i>
+                                </div>
+                                <a href="#">Booking Now</a>
+                            </div>
+                        </div>
+                        <h2>@details.Type.Price$<span>/Pernight</span></h2>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="r-o">Size:</td>
+                                    <td>@details.Type.Acreage m<sup>2</sup></td>
+                                </tr>
+                                <tr>
+                                    <td class="r-o">Capacity:</td>
+                                    <td>Max @details.Type.Capacity people</td>
+                                </tr>
+                                <tr>
+                                    <td class="r-o">Beds:</td>
+                                    <td>@details.Type.Beds</td>
+                                </tr>
+                                <tr>
+                                    <td class="r-o">Services:</td>
+                                    <td>Wifi, Television, Bathroom,...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="f-para">
+                            @details.Type.Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="room-booking">
+                    <h3>Your Reservation</h3>
+                    <form action="#">
+                        <div class="check-date">
+                            <label for="date-in">Check In:</label>
+                            <input type="text" class="date-input" id="date-in">
+                            <i class="icon_calendar"></i>
+                        </div>
+                        <div class="check-date">
+                            <label for="date-out">Check Out:</label>
+                            <input type="text" class="date-input" id="date-out">
+                            <i class="icon_calendar"></i>
+                        </div>
+                        <div class="select-option">
+                            <label for="guest">Guests:</label>
+                            <select id="guest">
+                                <option value="">1 Adult</option>
+                                <option value="">2 Adults</option>
+                                <option value="">3 Adults</option>
+                            </select>
+                        </div>
+                        <div class="select-option">
+                            <label for="guest">Children:</label>
+                            <select id="children">
+                                <option value="">1 Children</option>
+                                <option value="">2 Children</option>
+                                <option value="">3 Children</option>
+                            </select>
+                        </div>
+                        <div class="select-option">
+                            <label for="room">Room:</label>
+                            <select id="room">
+                                <option value="">1 Room</option>
+                                <option value="">2 Rooms</option>
+                                <option value="">3 Rooms</option>
+                            </select>
+                            <button type="submit">Check Availability</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Room Details Section End -->
