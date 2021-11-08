@@ -117,11 +117,13 @@ ol {
   line-height: 58px;
   margin-top: 10px;
 }
-/*.set-bg {
+.set-bg {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top center;
-}*/
+}
+
+
 .spad {
   padding-top: 100px;
   padding-bottom: 100px;

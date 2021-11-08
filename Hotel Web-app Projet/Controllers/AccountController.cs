@@ -26,17 +26,19 @@ namespace Hotel_Web_app_Projet.Controllers
             var accounts = context.Accounts.ToList();
             if (ModelState.IsValid)
             {
-                Account account = (from a in accounts where a.Username.Equals(username) && a.Password.Equals(password) select a).Single();
+                var query = (from a in accounts where a.Username.Equals(username) && a.Password.Equals(password) select a).FirstOrDefault();
+                Account account = query==null?null: (from a in accounts where a.Username.Equals(username) && a.Password.Equals(password) select a).Single();
                 if (account != null)
                 {
                     //add session
+                   
                     HttpContext.Session.SetString("user",JsonConvert.SerializeObject(account));
                     return RedirectToAction("Index", "home");
                 }
                 else
                 {
-                    ViewBag.error = "Login failed";
-                    return RedirectToAction("Login");
+                    ViewBag.Error = "Login failed";
+                    return Login();
                 }
             }
             return View();
@@ -47,7 +49,8 @@ namespace Hotel_Web_app_Projet.Controllers
         public ActionResult Logout()
         {
             HttpContext.Session.Remove("user");
-            return Redirect("home");
+            return RedirectToAction("Index", "home");
+
         }
 
         public IActionResult Signup()

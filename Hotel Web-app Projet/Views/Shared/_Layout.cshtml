@@ -20,16 +20,16 @@
           rel="stylesheet" />
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/Assets/css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/Assets/css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="~/Assets/css/flaticon.css" type="text/css" />
-    <link rel="stylesheet" href="~/Assets/css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/Assets/css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="~/Assets/css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/Assets/css/magnific-popup.css" type="text/css" />
-    <link rel="stylesheet" href="~/Assets/css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="~/Assets/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/Assets/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/Assets/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/Assets/css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/Assets/css/flaticon.css" type="text/css" />
+    <link rel="stylesheet" href="/Assets/css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="/Assets/css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="/Assets/css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="/Assets/css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="/Assets/css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="/Assets/css/style.css" type="text/css" />
 </head>
 
 <body>
@@ -116,16 +116,22 @@
                             {
                                 <a href="/account/login" class="bk-btn">Login Now</a>
                             }
-                            
-                            <div class="language-option">
-                                <span>EN <i class="fa fa-angle-down"></i></span>
-                                <div class="flag-dropdown">
-                                    <ul>
-                                        <li><a href="#">Zi</a></li>
-                                        <li><a href="#">Fr</a></li>
-                                    </ul>
-                                </div>
+
+
+                            @if(TempData["user"] != null)
+            {
+                        <div class="language-option">
+                            <span>Username<i class="fa fa-angle-down"></i></span>
+                            <div class="flag-dropdown">
+                                <ul>
+                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="/account/logout">Logout</a></li>
+                                </ul>
                             </div>
+                        </div>
+            }
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -137,7 +143,7 @@
                     <div class="col-lg-2">
                         <div class="logo">
                             <a href="./index.html">
-                                <img src="~/Assets/img/logo.png" alt="" />
+                                <img src="/Assets/img/logo.png" alt="" />
                             </a>
                         </div>
                     </div>
@@ -180,7 +186,7 @@
                         <div class="ft-about">
                             <div class="logo">
                                 <a href="#">
-                                    <img src="img/footer-logo.png" alt="" />
+                                    <img src="/Assets/img/footer-logo.png" alt="" />
                                 </a>
                             </div>
                             <p>
@@ -261,14 +267,14 @@
     </div>
     <!-- Search model end -->
     <!-- Js Plugins -->
-    <script src="~/Assets/js/jquery-3.3.1.min.js"></script>
-    <script src="~/Assets/js/bootstrap.min.js"></script>
-    <script src="~/Assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/Assets/js/jquery.nice-select.min.js"></script>
-    <script src="~/Assets/js/jquery-ui.min.js"></script>
-    <script src="~/Assets/js/jquery.slicknav.js"></script>
-    <script src="~/Assets/js/owl.carousel.min.js"></script>
-    <script src="~/Assets/js/main.js"></script>
+    <script src="/Assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/Assets/js/bootstrap.min.js"></script>
+    <script src="/Assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/Assets/js/jquery.nice-select.min.js"></script>
+    <script src="/Assets/js/jquery-ui.min.js"></script>
+    <script src="/Assets/js/jquery.slicknav.js"></script>
+    <script src="/Assets/js/owl.carousel.min.js"></script>
+    <script src="/Assets/js/main.js"></script>
 </body>
 </html>
 

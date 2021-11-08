@@ -33,6 +33,10 @@ namespace Hotel_Web_app_Projet.Controllers
         {
             return View();
         }
+        public IActionResult Contact()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
