@@ -18,7 +18,6 @@ namespace Hotel_Web_app_Projet.Models
         public DateTime? Dob { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public string Image { get; set; }
         public int AccountId { get; set; }
 
         public virtual Account Account { get; set; }

@@ -28,11 +28,10 @@ namespace Hotel_Web_app_Projet.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder()
-                                  .SetBasePath(Directory.GetCurrentDirectory())
-                                  .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                                 .SetBasePath(Directory.GetCurrentDirectory())
+                                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             IConfigurationRoot configuration = builder.Build();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyDB"));
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -41,7 +40,7 @@ namespace Hotel_Web_app_Projet.Models
 
             modelBuilder.Entity<Account>(entity =>
             {
-                entity.HasIndex(e => e.Username, "UQ__Accounts__F3DBC572FFDF7563")
+                entity.HasIndex(e => e.Username, "UQ__Accounts__F3DBC572F03EE497")
                     .IsUnique();
 
                 entity.Property(e => e.AccountId).HasColumnName("account_id");
@@ -106,10 +105,6 @@ namespace Hotel_Web_app_Projet.Models
             {
                 entity.Property(e => e.RoomId).HasColumnName("room_id");
 
-                entity.Property(e => e.Description)
-                    .IsUnicode(false)
-                    .HasColumnName("description");
-
                 entity.Property(e => e.Image)
                     .IsRequired()
                     .IsUnicode(false)
@@ -137,7 +132,7 @@ namespace Hotel_Web_app_Projet.Models
             modelBuilder.Entity<RoomType>(entity =>
             {
                 entity.HasKey(e => e.TypeId)
-                    .HasName("PK__RoomType__2C00059868F042C0");
+                    .HasName("PK__RoomType__2C000598D7CF9093");
 
                 entity.ToTable("RoomType");
 
@@ -150,6 +145,16 @@ namespace Hotel_Web_app_Projet.Models
                 entity.Property(e => e.Beds).HasColumnName("beds");
 
                 entity.Property(e => e.Capacity).HasColumnName("capacity");
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.Image)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("image");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -174,10 +179,6 @@ namespace Hotel_Web_app_Projet.Models
                     .HasColumnName("email");
 
                 entity.Property(e => e.Gender).HasColumnName("gender");
-
-                entity.Property(e => e.Image)
-                    .IsUnicode(false)
-                    .HasColumnName("image");
 
                 entity.Property(e => e.Name)
                     .IsRequired()

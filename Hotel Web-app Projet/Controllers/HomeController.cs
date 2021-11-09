@@ -1,6 +1,7 @@
 ﻿using Hotel_Web_app_Projet.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -13,11 +14,19 @@ namespace Hotel_Web_app_Projet.Controllers
 {
     public class HomeController : Controller
     {
+        HotelWebsiteContext context = new();
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+
+        public override ViewResult View()
+        {
+            ViewBag.RoomTypes = context.RoomTypes.ToList();
+            return base.View();
         }
 
         public IActionResult Index()
@@ -33,12 +42,8 @@ namespace Hotel_Web_app_Projet.Controllers
         {
             return View();
         }
-        public IActionResult Contact()
-        {
-            return View();
-        }
 
-        public IActionResult Privacy()
+        public IActionResult Contact()
         {
             return View();
         }

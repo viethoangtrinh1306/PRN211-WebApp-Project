@@ -19,6 +19,8 @@ namespace Hotel_Web_app_Projet.Models
         public int Bathrooms { get; set; }
         public int Capacity { get; set; }
         public double Price { get; set; }
+        public string Description { get; set; }
+        public string Image { get; set; }
 
         public virtual ICollection<Room> Rooms { get; set; }
     }
