@@ -12,63 +12,59 @@
     <title>Sign Up Form by Colorlib</title>
 
     <!-- Font Icon -->
-  
-    <link rel="stylesheet" href="~/login Assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet"
+          href="/login Assets/fonts/material-icon/css/material-design-iconic-font.min.css" />
+    <link rel="stylesheet" href="/login Assets/vendor/jquery-ui/jquery-ui.min.css" />
 
     <!-- Main css -->
-    <link rel="stylesheet" href="~/login Assets/css/style.css">
+    
+    <link rel="stylesheet" href="/login Assets/css/style.css" />
 </head>
 <body>
 
     <div class="main">
-        
-        
-        <!-- Sign in  Form -->
-        <section class="sign-in">
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
             <div class="container">
-                <div class="signin-content">
-                    <div class="signin-image">
-                        <figure><img src="~/login Assets/images/signin-image.jpg" alt="sing up image"></figure>
-                        <a href="/Account/signup" class="signup-image-link">Create an account</a>
-                    </div>
-                    
-                    <div class="signin-form">
-                        <h2 class="form-title">Login</h2>
-                        <p style="color:red;"> @ViewBag.Error</p>
-                        <form asp-controller="Account" asp-action="login" method="POST" class="register-form" id="login-form">
-                            <div class="form-group">
-                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" id="your_name" placeholder="Your Name" asp-for="Username" />
-                            </div>
-                            <div class="form-group">
-                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" id="your_pass" placeholder="Password" asp-for="Password" />
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
-                            </div>
-                        </form>
-                        <div class="social-login">
-                            <span class="social-label">Or login with</span>
-                            <ul class="socials">
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-                            </ul>
+                <div class="signup-content">
+                    <h1>Login Form</h1>
+                    <form method="POST" id="signup-form" class="login-form">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="number"
+                                   class="form-input"
+                                   name="username"
+                                   id="username" />
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="email"
+                                   class="form-input"
+                                   name="password"
+                                   id="password" />
+                        </div>
+                        <div class="form-group">
+                            <p>Don't have an account? Signup <a href="/account/signup">here</a></p>
+                            <input type="submit"
+                                   name="submit"
+                                   id="submit"
+                                   class="form-submit"
+                                   value="Login" />
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
 
+
+
     </div>
 
     <!-- JS -->
-    <script src="~/login Assets/vendor/jquery/jquery.min.js"></script>
-    <script src="~/login Assets/js/main.js"></script>
+    <script src="/login Assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/login Assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/login Assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/login Assets/vendor/jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="/login Assets/js/main.js"></script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

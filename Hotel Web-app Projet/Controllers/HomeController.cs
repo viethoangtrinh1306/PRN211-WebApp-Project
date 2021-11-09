@@ -22,7 +22,7 @@ namespace Hotel_Web_app_Projet.Controllers
 
         public IActionResult Index()
         {
-            if(HttpContext.Session.GetString("user") != null)
+            if (HttpContext.Session.GetString("user") != null)
             {
                 TempData["user"] = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("user"));
             }
