@@ -51,5 +51,6 @@ namespace Hotel_Web_app_Projet.Controllers
             ViewBag.RoomDetails = context.Rooms.Find(RoomId);
             return View();
         }
+        
     }
 }
