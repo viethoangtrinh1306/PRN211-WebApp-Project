@@ -23,7 +23,7 @@ namespace Hotel_Web_app_Projet.Controllers
         {
             if (HttpContext.Session.GetString("user") != null)
             {
-                TempData["user"] = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("user"));
+                TempData["user"] = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("user"));
             }
            
             ViewBag.UserDetails = context.Users.Find(UserID);
