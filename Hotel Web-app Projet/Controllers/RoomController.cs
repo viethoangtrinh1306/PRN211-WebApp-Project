@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using PagedList;
 using System;
+using System.Collections.Generic;
 
 namespace Hotel_Web_app_Projet.Controllers
 {
@@ -16,9 +17,17 @@ namespace Hotel_Web_app_Projet.Controllers
             return base.View();
         }
 
-        public IActionResult Index(int Page)
+        public IActionResult Index(int Page, int TypeId)
         {
-            var rooms = context.Rooms.ToList();
+            List<Room> rooms = new List<Room>();
+            if (TypeId == 0)
+            {
+                rooms = context.Rooms.ToList();
+            }
+            else
+            {
+                rooms = context.Rooms.Where(p => p.TypeId == TypeId).ToList();
+            }
             int pageSize = 6;
             decimal pageNumber = Math.Ceiling((decimal)rooms.Count / pageSize);
 
@@ -30,6 +39,7 @@ namespace Hotel_Web_app_Projet.Controllers
                 Page = (int)pageNumber;
             }
 
+            ViewBag.TypeId = TypeId;
             ViewBag.Rooms = rooms.ToPagedList(Page, pageSize);
             ViewBag.Pages = pageNumber;
             ViewBag.CurrentPage = Page;

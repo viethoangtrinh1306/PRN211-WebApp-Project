@@ -86,11 +86,11 @@
                                 <ul>
                                     <li ><a href="/Home">Home</a></li>
                                     <li>
-                                        <a href="/Room?Page=1">Rooms</a>
+                                        <a href="/Room?Page=1&TypeId=0">Rooms</a>
                                         <ul class="dropdown">
                                             @foreach (var item in ViewBag.RoomTypes)
                                             {
-                                                <li><a href="#">@item.Name</a></li>
+                                                <li><a href="/Room?Page=1&TypeId=@item.TypeId">@item.Name</a></li>
                                             }
                                         </ul>
                                     </li>
