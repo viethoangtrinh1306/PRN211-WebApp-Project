@@ -1,5 +1,6 @@
 ﻿@{ 
     var user = TempData["user"] as Account;
+    var person = TempData["person"] as User;
 }
 
 <!DOCTYPE html>
@@ -39,8 +40,8 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <ul class="tn-left">
-                            <li><i class="fa fa-phone"></i> (12) 345 67890</li>
-                            <li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
+                            <li><i class="fa fa-phone"></i> 0123 456 789</li>
+                            <li><i class="fa fa-envelope"></i> temp@gmail.com</li>
                         </ul>
                     </div>
                     <div class="col-lg-6">
@@ -56,10 +57,10 @@
                                 <a href="/account/login" class="bk-btn">Login Now</a>
                             } else{
                             <div class="language-option">
-                                <span>Username<i class="fa fa-angle-down"></i></span>
+                                <span> Username <i class="fa fa-angle-down"></i></span>
                                     <div class="flag-dropdown">
                                         <ul>
-                                            <li><a href="#">Profile</a></li>
+                                            <li><a href="/User/UserDetails?UserID=@user.AccountId">Profile</a></li>
                                             <li><a href="/account/logout">Logout</a></li>
                                         </ul>
                                     </div>
@@ -75,7 +76,7 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="logo">
-                            <a href="./index.html">
+                            <a href="/home/index">
                                 <img src="/Assets/img/logo.png" alt="" />
                             </a>
                         </div>
