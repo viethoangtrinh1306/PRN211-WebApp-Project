@@ -2,6 +2,7 @@
 @{
     Layout = "_EmptyLayout";
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,23 +28,24 @@
             <div class="container">
                 <div class="signup-content">
                     <h1>Register Form</h1>
+                    <h3>@ViewBag.error</h3>
                     <form method="POST" id="signup-form" class="signup-form">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="first_name">Your name</label>
                                 <input type="text"
                                        class="form-input"
-                                       name="first_name"
+                                       name="name"
                                        id="first_name" />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group form-icon">
                                 <label for="birth_date">Birth date</label>
-                                <input type="text"
+                                <input type="date"
                                        class="form-input"
-                                       name="birth_date"
-                                       id="birth_date"
+                                       name="dob"
+                                       
                                        placeholder="MM-DD-YYYY" />
                             </div>
                             <div class="form-radio">
@@ -68,7 +70,7 @@
                             <label for="phone_number">Phone number</label>
                             <input type="number"
                                    class="form-input"
-                                   name="phone_number"
+                                   name="phone"
                                    id="phone_number" />
                         </div>
                         <div class="form-group">
@@ -77,6 +79,13 @@
                                    class="form-input"
                                    name="email"
                                    id="email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text"
+                                   class="form-input"
+                                   name="username"
+                                   id="username" />
                         </div>
                         <div class="form-row">
                             <div class="form-group">
@@ -90,7 +99,7 @@
                                 <label for="re_password">Repeat your password</label>
                                 <input type="password"
                                        class="form-input"
-                                       name="re_password"
+                                       name="rePassword"
                                        id="re_password" />
                             </div>
                         </div>

@@ -214,6 +214,10 @@ a {
   text-align: center;
   font-size: 2rem;
 }
+.signup-content h3{
+    padding-left:58px;
+    color:red;
+}
 .signup-form {
   padding: 58px 50px 0px 50px;
   height: 652px;

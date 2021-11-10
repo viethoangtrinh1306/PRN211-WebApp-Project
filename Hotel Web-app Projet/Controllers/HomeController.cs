@@ -34,6 +34,7 @@ namespace Hotel_Web_app_Projet.Controllers
             if (HttpContext.Session.GetString("user") != null)
             {
                 TempData["user"] = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("user"));
+                
             }
             return View();
         }
