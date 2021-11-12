@@ -13,12 +13,6 @@ namespace Hotel_Web_app_Projet.Controllers
     {
         HotelWebsiteContext context = new();
 
-        public override ViewResult View()
-        {
-            ViewBag.RoomTypes = context.RoomTypes.ToList();
-            return base.View();
-        }
-
         public IActionResult UserDetails(int UserID)
         {
             if (HttpContext.Session.GetString("user") != null)

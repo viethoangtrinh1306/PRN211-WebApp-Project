@@ -1,9 +1,10 @@
 ﻿using Hotel_Web_app_Projet.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using PagedList;
 using System;
 using System.Collections.Generic;
+using X.PagedList;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hotel_Web_app_Projet.Controllers
 {
@@ -11,44 +12,64 @@ namespace Hotel_Web_app_Projet.Controllers
     {
         HotelWebsiteContext context = new();
 
-        public override ViewResult View()
+        public IActionResult Index(int page, string sortByPrice, int roomType, int price, int guest)
         {
-            ViewBag.RoomTypes = context.RoomTypes.ToList();
-            return base.View();
-        }
+            IQueryable<Room> rooms = context.Rooms.AsQueryable();
+            string query = null;
 
-        public IActionResult Index(int Page, int TypeId)
-        {
-            List<Room> rooms = new List<Room>();
-            if (TypeId == 0)
+            // Room Types
+            if (roomType != 0)
             {
-                rooms = context.Rooms.ToList();
+                rooms = context.Rooms.Where(p => p.TypeId == roomType);
+                query += $"&roomType={roomType}";
             }
-            else
+
+            // Sorting
+            if (sortByPrice == "asc")
             {
-                rooms = context.Rooms.Where(p => p.TypeId == TypeId).ToList();
+                rooms = rooms.OrderBy(r => r.Type.Price);
+                query += $"&sortByPrice={sortByPrice}";
             }
+            else if (sortByPrice == "desc")
+            {
+                rooms = rooms.OrderByDescending(r => r.Type.Price);
+                query += $"&sortByPrice={sortByPrice}";
+            }
+
+            // Prices & Guests
+            if (price != 0 || guest != 0)
+            {
+                rooms = context.Rooms.Where(p => p.Type.Price <= price && p.Type.Capacity >= guest);
+                query += $"&price={price}&guest={guest}";
+            }
+
+            //Pagination
             int pageSize = 6;
-            decimal pageNumber = Math.Ceiling((decimal)rooms.Count / pageSize);
+            decimal pageNumber = Math.Ceiling((decimal)rooms.ToList().Count / pageSize);
 
-            if (Page <= 0)
+            if (page <= 1)
             {
-                Page = 1;
-            } else if (Page > pageNumber)
+                page = 1;
+            } else if (page >= pageNumber)
             {
-                Page = (int)pageNumber;
+                page = (int)pageNumber;
             }
 
-            ViewBag.TypeId = TypeId;
-            ViewBag.Rooms = rooms.ToPagedList(Page, pageSize);
+            ViewBag.query = query;
+            ViewBag.sortByPrice = sortByPrice;
+            ViewBag.TypeId = roomType;
+            ViewBag.Price = price;
+            ViewBag.Guest = guest;
+            ViewBag.Rooms = rooms.ToPagedList(page, pageSize);
             ViewBag.Pages = pageNumber;
-            ViewBag.CurrentPage = Page;
+            ViewBag.CurrentPage = page;
+            ViewBag.RoomTypes = context.RoomTypes.ToList();
             return View();
         }
 
-        public IActionResult RoomDetails(int RoomId)
+        public IActionResult RoomDetails(int roomId)
         {
-            ViewBag.RoomDetails = context.Rooms.Find(RoomId);
+            ViewBag.RoomDetails = context.Rooms.Find(roomId);
             return View();
         }
         

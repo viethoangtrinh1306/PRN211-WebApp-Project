@@ -1188,7 +1188,7 @@ ol {
   margin-bottom: 30px;
 }
 .room-item img {
-  min-width: 100%;
+    min-width: 100%;
 }
 .room-item .ri-text {
   border: 1px solid #ebebeb;

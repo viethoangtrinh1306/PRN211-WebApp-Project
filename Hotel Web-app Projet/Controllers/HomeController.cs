@@ -23,19 +23,13 @@ namespace Hotel_Web_app_Projet.Controllers
             _logger = logger;
         }
 
-        public override ViewResult View()
-        {
-            ViewBag.RoomTypes = context.RoomTypes.ToList();
-            return base.View();
-        }
-
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("user") != null)
             {
                 TempData["user"] = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("user"));
-                
             }
+            ViewBag.RoomTypes = context.RoomTypes.ToList();
             return View();
         }
 
