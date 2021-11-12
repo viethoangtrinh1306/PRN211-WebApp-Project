@@ -75,7 +75,7 @@
                         <input type="hidden" value="@details.RoomId" name="roomID" />
                         <div class="check-date">
                             <label for="date-in">Check In:</label>
-                            <input type="text" class="date-input" id="date-in" name="dateIn" required   >
+                            <input type="text" class="date-input" id="date-in" name="dateIn" required>
                             <i class="icon_calendar"></i>
                         </div>
                         <div class="check-date">
@@ -88,6 +88,7 @@
                             <button type="submit">Check Availability</button>
                         </div>
                     </form>
+              
                     <p class="text-danger">@TempData["Error"]</p>
                     <p class="text-primary">@TempData["Message"]</p>
 
