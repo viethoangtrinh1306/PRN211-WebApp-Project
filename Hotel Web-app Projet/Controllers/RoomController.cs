@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using X.PagedList;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,8 +13,17 @@ namespace Hotel_Web_app_Projet.Controllers
     public class RoomController : Controller
     {
         HotelWebsiteContext context = new();
+        public void getSession()
+        {
+            if (HttpContext.Session.GetString("user") != null)
+            {
+                TempData["user"] = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("user"));
+                User person = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("person"));
+                TempData["person"] = person;
+            }
+        }
 
-        public IActionResult Index(int page, string sortByPrice, int roomType, int price, int guest)
+        public IActionResult Index(int page, int roomType, string sortByPrice, int price, int guest)
         {
             IQueryable<Room> rooms = context.Rooms.AsQueryable();
             string query = null;
@@ -69,9 +80,67 @@ namespace Hotel_Web_app_Projet.Controllers
 
         public IActionResult RoomDetails(int roomId)
         {
-            ViewBag.RoomDetails = context.Rooms.Find(roomId);
+            getSession();
+            Room r = context.Rooms.Find(roomId);
+            ViewBag.RoomDetails = r;
             return View();
         }
-        
+
+        [HttpPost]
+        public IActionResult Check()
+        {
+            int roomID = int.Parse(Request.Form["roomID"]);
+            DateTime dateIn = DateTime.Parse(String.Format("{0}", Request.Form["dateIn"]));
+            DateTime dateOut = DateTime.Parse(String.Format("{0}", Request.Form["dateOut"]));
+
+            if ((dateIn.CompareTo(dateOut)) > 0)
+            {
+                TempData["Error"] = "Check Out date must greater than Check In date";
+
+            }
+            else
+            { 
+                var bookList = (from b in context.Bookings
+                                where b.RoomId == 1
+                                && ((b.DateFrom < dateIn && dateIn < b.DateFrom)
+                                || (dateIn <= b.DateFrom && b.DateTo <= dateOut)
+                                || (b.DateFrom <= dateOut && b.DateTo > dateOut))
+                                select b ).ToList();
+                if (bookList.Count == 0)
+                {
+                    TempData["Message"] = "Available room!";
+                    
+                }
+                else
+                {
+                    TempData["Message"] = "Room not available!";
+
+                }
+
+            }
+            return RedirectToAction("RoomDetails", "room", new { roomId = roomID });
+        }
+
+        [HttpGet]
+        public IActionResult Booking(int roomId)
+        {
+            if (HttpContext.Session.GetString("user") == null)
+            {
+                return RedirectToAction("login", "account");
+            }
+            else
+            {
+                getSession();
+            }
+            ViewBag.RoomDetails = context.Rooms.Find(roomId);
+            return View();  
+        }
+
+        [HttpPost]
+        public IActionResult Booking()
+        {
+            getSession();
+            return View();
+        }
     }
 }

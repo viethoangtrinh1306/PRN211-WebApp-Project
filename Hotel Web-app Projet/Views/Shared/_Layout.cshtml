@@ -1,6 +1,12 @@
-﻿@{ 
-    var user = TempData["user"] as Account;  
+﻿@using Microsoft.AspNetCore.Http;
+@using Hotel_Web_app_Projet.Models
+@using Newtonsoft.Json;
+
+@{
+    var user = TempData["user"] as Account;
+    var person = TempData["person"] as User;
 }
+
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -51,12 +57,14 @@
                                 <a href="#"><i class="fa fa-tripadvisor"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                             </div>
-                           @if (TempData["user"] == null)
+                            @if (TempData["user"] == null)
                             {
                                 <a href="/account/login" class="bk-btn">Login Now</a>
-                            } else{
-                            <div class="language-option">
-                                <span> Username <i class="fa fa-angle-down"></i></span>
+                            }
+                            else
+                            {
+                                <div class="language-option">
+                                    <span>@person.Name<i class="fa fa-angle-down"></i></span>
                                     <div class="flag-dropdown">
                                         <ul>
                                             <li><a href="/User/UserDetails?UserID=@user.AccountId">Profile</a></li>
@@ -64,7 +72,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                            }                        
+                            }
                         </div>
                     </div>
                 </div>
@@ -84,7 +92,7 @@
                         <div class="nav-menu">
                             <nav class="mainmenu">
                                 <ul>
-                                    <li ><a href="/Home">Home</a></li>
+                                    <li><a href="/Home">Home</a></li>
                                     <li>
                                         <a href="/Room?page=1">Rooms</a>
                                     </li>
@@ -132,8 +140,8 @@
                         <div class="ft-contact">
                             <h6>Contact Us</h6>
                             <ul>
-                                <li>0123 456 789</li>
-                                <li>temp@gmail.com</li>
+                                <li>(+84) 123 456 789</li>
+                                <li>sonahotel@gmail.com</li>
                                 <li>Hoa Lac, Thach That, Ha Noi, Viet Nam</li>
                             </ul>
                         </div>

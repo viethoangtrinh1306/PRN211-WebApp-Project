@@ -1,0 +1,126 @@
+﻿@{
+    var details = ViewBag.RoomDetails;
+    var person = TempData["person"] as User;
+    }
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Check Out</h2>
+                    <div class="bt-option">
+                        <a href="./home.html">Home</a>
+                        <span>Checkout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+<!-- Room Details Section Begin -->
+<section class="room-details-section spad">
+    <div class="container">
+        <div class="row">
+            <style>
+                input {
+                    border: 1px solid #eb7 !important;
+                }
+            </style>
+            <div class="col-md-8">
+                <h3 class="mb-3">Billing address</h3>
+                <form class="needs-validation" novalidate action="booking" method="post" >
+
+                    <div class="mb-3">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name"  value="@person.Name">
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Your name is required.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email"  value="@person.Email">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control" id="phone"  value="@person.Phone">
+                        <div class="invalid-feedback">
+                            Please enter your phone number.
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="date-in">Check In:</label><br>
+                            <input type="text" class="date-input" id="date-in" required style="height:38px;border-radius:3px;width:360px;padding:6px 12px;" />
+                            <div class="invalid-feedback">
+                                Please enter your Check In date.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="date-out">Check Out:</label><br>
+                            <input type="text" class="date-input" id="date-out" required style="height: 38px; border-radius: 3px; width: 360px; padding: 6px 12px; " />
+                            <div class="invalid-feedback">
+                                Please enter your Check Out date.
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" style="background-color: #eb7;font-weight:bold;border:2px solid white;">Continue to checkout</button>
+                </form>
+            </div>
+            <div class="col-lg-4">
+                <div class="room-booking">
+                    <h3>Your Room</h3>
+                    <div class="room-item">
+                        <img src="@details.Image" alt="" width="360px" height="240px">
+                        <div class="ri-text">
+                            <h4>Room @details.Name</h4>
+                            <h3>@details.Type.Price$<span>/Pernight</span></h3>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="r-o">Type:</td>
+                                        <td>@details.Type.Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Size:</td>
+                                        <td>@details.Type.Acreage m<sup>2</sup></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Capacity:</td>
+                                        <td>Max @details.Type.Capacity people</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Beds:</td>
+                                        <td>@details.Type.Beds</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h4 id="totalPrice">Total: 50$</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@*<script>
+    function countTotal() {
+        var dateIn = new Date(document.getElementById("date_in").nodeValue);
+        var dateOut = new Date(document.getElementById("date_out").nodeValue);
+        var dateDiff = Math.ceil((dateOut - dateIn)/(1000*3600*24));
+        var total = dateDiff details.Type.Price;
+        document.getElementById("totalPrice").innerHTML = "Total: " + total + "$";
+    }
+</script>*@
+<!-- Room Details Section End -->
