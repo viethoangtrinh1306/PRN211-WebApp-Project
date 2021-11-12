@@ -1,5 +1,6 @@
 ﻿@{
     var details = ViewBag.RoomDetails;
+    var user = TempData["user"];
 }
 <!-- Breadcrumb Section Begin -->
 <div class="breadcrumb-section">
@@ -35,8 +36,9 @@
                                     <i class="icon_star"></i>
                                     <i class="icon_star"></i>
                                     <i class="icon_star-half_alt"></i>
+                                    
                                 </div>
-                                <a href="#">Booking Now</a>
+                                <a href="/Room/Booking?RoomId=@details.RoomId">Booking Now</a>
                             </div>
                         </div>
                         <h2>@details.Type.Price$<span>/Pernight</span></h2>
@@ -69,43 +71,26 @@
             <div class="col-lg-4">
                 <div class="room-booking">
                     <h3>Your Reservation</h3>
-                    <form action="#">
+                    <form action="check" method="post">
+                        <input type="hidden" value="@details.RoomId" name="roomID" />
                         <div class="check-date">
                             <label for="date-in">Check In:</label>
-                            <input type="text" class="date-input" id="date-in">
+                            <input type="text" class="date-input" id="date-in" name="dateIn" required   >
                             <i class="icon_calendar"></i>
                         </div>
                         <div class="check-date">
                             <label for="date-out">Check Out:</label>
-                            <input type="text" class="date-input" id="date-out">
+                            <input type="text" class="date-input" id="date-out" name="dateOut" required>
                             <i class="icon_calendar"></i>
                         </div>
+
                         <div class="select-option">
-                            <label for="guest">Guests:</label>
-                            <select id="guest">
-                                <option value="">1 Adult</option>
-                                <option value="">2 Adults</option>
-                                <option value="">3 Adults</option>
-                            </select>
-                        </div>
-                        <div class="select-option">
-                            <label for="guest">Children:</label>
-                            <select id="children">
-                                <option value="">1 Children</option>
-                                <option value="">2 Children</option>
-                                <option value="">3 Children</option>
-                            </select>
-                        </div>
-                        <div class="select-option">
-                            <label for="room">Room:</label>
-                            <select id="room">
-                                <option value="">1 Room</option>
-                                <option value="">2 Rooms</option>
-                                <option value="">3 Rooms</option>
-                            </select>
                             <button type="submit">Check Availability</button>
                         </div>
                     </form>
+                    <p class="text-danger">@TempData["Error"]</p>
+                    <p class="text-primary">@TempData["Message"]</p>
+
                 </div>
             </div>
         </div>

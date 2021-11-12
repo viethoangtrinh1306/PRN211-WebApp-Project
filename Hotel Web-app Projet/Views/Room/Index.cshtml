@@ -23,9 +23,11 @@
             {
                 <div class="col-lg-4 col-md-6">
                     <div class="room-item">
-                        <img src="@item.Image" alt="" width="360px" height="240px">
+                        <a href="/Room/RoomDetails?RoomId=@item.RoomId"><img src="@item.Image" alt="" width="360px" height="240px"></a>
+ 
                         <div class="ri-text">
-                            <h4>Room @item.Name</h4>
+                            <a href="/Room/RoomDetails?RoomId=@item.RoomId"><h4>Room @item.Name</h4></a>
+
                             <h3>@item.Type.Price$<span>/Pernight</span></h3>
                             <table>
                                 <tbody>

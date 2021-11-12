@@ -28,24 +28,33 @@ namespace Hotel_Web_app_Projet.Controllers
             ViewBag.RoomTypes = context.RoomTypes.ToList();
             return base.View();
         }
-
-        public IActionResult Index()
+        public void getSession()
         {
             if (HttpContext.Session.GetString("user") != null)
             {
                 TempData["user"] = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("user"));
-                
+                User person = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("person"));
+                TempData["person"] = person;
             }
+        }
+
+        public IActionResult Index()
+        {
+            getSession();
             return View();
         }
 
         public IActionResult About()
         {
+            getSession();
+
             return View();
         }
 
         public IActionResult Contact()
         {
+            getSession();
+
             return View();
         }
 
