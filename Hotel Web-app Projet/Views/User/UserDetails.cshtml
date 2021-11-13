@@ -54,13 +54,19 @@
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <br>
-                        @{
-
+                        @if (userDetail.Gender == true)
+                        {
+                            <input type="radio" name="gender" value="1" checked="">@:Male
+                            <input type="radio" name="gender" value="0" style="margin-left: 50px">@:Female
+                        }
+                        @if (userDetail.Gender != true)
+                        {
+                            <input type="radio" name="gender" value="1" >@:Male
+                            <input type="radio" name="gender" value="0"  checked style="margin-left: 50px">@:Female
                         }
 
                         <!--<input type="text" value="" />-->
-                        <input type="radio" name="gender" value="1" checked=""> Male
-                        <input type="radio" name="gender" value="0" style="margin-left: 50px"> Female
+                       
                     </div>
                     
 

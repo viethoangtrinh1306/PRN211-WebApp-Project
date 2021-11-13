@@ -24,6 +24,7 @@ namespace Hotel_Web_app_Projet.Controllers
         {
             
             var accounts = context.Accounts.ToList();
+           
             if (ModelState.IsValid)
             {
                 var query = (from a in accounts where a.Username.Equals(username) && a.Password.Equals(password) select a).FirstOrDefault();
@@ -32,9 +33,10 @@ namespace Hotel_Web_app_Projet.Controllers
                 if (account != null)
                 {
                     //add session
-                   
-                    HttpContext.Session.SetString("user",JsonConvert.SerializeObject(account));
+                    User user = (from u in context.Users.ToList() where u.Account == account select u).Single();
                     
+                    HttpContext.Session.SetString("user", JsonConvert.SerializeObject(account));
+                    HttpContext.Session.SetString("person", JsonConvert.SerializeObject(user));
                     return RedirectToAction("Index", "home");
                 }
                 else

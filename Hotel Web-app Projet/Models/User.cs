@@ -20,6 +20,7 @@ namespace Hotel_Web_app_Projet.Models
         public string Email { get; set; }
         public int AccountId { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         public virtual Account Account { get; set; }
         public virtual ICollection<Booking> Bookings { get; set; }
     }
