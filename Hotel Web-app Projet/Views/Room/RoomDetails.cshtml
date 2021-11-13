@@ -29,7 +29,7 @@
                     <img src="@details.Image" alt="Room Image">
                     <div class="rd-text">
                         <div class="rd-title">
-                            <h3>Room @details.Name</h3>
+                            <h3>@details.Name</h3>
                             <div class="rdt-right">
                                 <div class="rating">
                                     <i class="icon_star"></i>
@@ -45,16 +45,20 @@
                         <table>
                             <tbody>
                                 <tr>
+                                    <td class="r-o">Type:</td>
+                                    <td>@details.Type.Name</td>
+                                </tr>
+                                <tr>
                                     <td class="r-o">Size:</td>
-                                    <td>@details.Type m<sup>2</sup></td>
+                                    <td>@details.Type.Acreage m<sup>2</sup></td>
                                 </tr>
                                 <tr>
                                     <td class="r-o">Capacity:</td>
-                                    <td>Max @details.Type people</td>
+                                    <td>Max @details.Type.Capacity people</td>
                                 </tr>
                                 <tr>
                                     <td class="r-o">Beds:</td>
-                                    <td>@details.Type</td>
+                                    <td>@details.Type.Beds</td>
                                 </tr>
                                 <tr>
                                     <td class="r-o">Services:</td>
@@ -63,7 +67,7 @@
                             </tbody>
                         </table>
                         <p class="f-para">
-                            @details.Type
+                            @details.Type.Description
                         </p>
                     </div>
                 </div>
@@ -96,3 +100,7 @@
     </div>
 </section>
 <!-- Room Details Section End -->
+
+
+
+
