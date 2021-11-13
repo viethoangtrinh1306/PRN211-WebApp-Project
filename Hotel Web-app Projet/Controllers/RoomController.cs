@@ -30,12 +30,6 @@ namespace Hotel_Web_app_Projet.Controllers
             return base.View();
         }
 
-        public override ViewResult View()
-        {
-            ViewBag.RoomTypes = context.RoomTypes.ToList();
-            return base.View();
-        }
-
         public IActionResult Index(int page, int roomType, string sortByPrice, int price, int guest)
         {
             
