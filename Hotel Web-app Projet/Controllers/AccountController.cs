@@ -41,7 +41,7 @@ namespace Hotel_Web_app_Projet.Controllers
                 }
                 else
                 {
-                    ViewBag.Error = "Login failed! Please check your username/ password";
+                    ViewBag.Error = "Login failed! Please check your username/password!";
                     return Login();
                 }
             }
