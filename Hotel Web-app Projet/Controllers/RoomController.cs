@@ -23,6 +23,12 @@ namespace Hotel_Web_app_Projet.Controllers
             }
         }
 
+        public override ViewResult View()
+        {
+            ViewBag.RoomTypes = context.RoomTypes.ToList();
+            return base.View();
+        }
+
         public IActionResult Index(int page, int roomType, string sortByPrice, int price, int guest)
         {
             IQueryable<Room> rooms = context.Rooms.AsQueryable();
@@ -81,8 +87,7 @@ namespace Hotel_Web_app_Projet.Controllers
         public IActionResult RoomDetails(int roomId)
         {
             getSession();
-            Room r = context.Rooms.Find(roomId);
-            ViewBag.RoomDetails = r;
+            ViewBag.RoomDetails = context.Rooms.Find(roomId);
             return View();
         }
 
