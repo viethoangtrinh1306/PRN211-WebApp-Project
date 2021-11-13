@@ -29,7 +29,6 @@ namespace Hotel_Web_app_Projet.Controllers
             {
                 var query = (from a in accounts where a.Username.Equals(username) && a.Password.Equals(password) select a).FirstOrDefault();
                 Account account = query==null?null: (from a in accounts where a.Username.Equals(username) && a.Password.Equals(password) select a).Single();
-                
                 if (account != null)
                 {
                     //add session

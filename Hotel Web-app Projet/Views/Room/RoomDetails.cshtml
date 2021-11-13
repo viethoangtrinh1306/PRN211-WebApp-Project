@@ -1,6 +1,6 @@
 ﻿@{
     var details = ViewBag.RoomDetails;
-    var user = TempData["user"];
+
 }
 <!-- Breadcrumb Section Begin -->
 <div class="breadcrumb-section">
@@ -19,6 +19,7 @@
     </div>
 </div>
 <!-- Breadcrumb Section End -->
+
 <!-- Room Details Section Begin -->
 <section class="room-details-section spad">
     <div class="container">
@@ -86,6 +87,7 @@
                             <button type="submit">Check Availability</button>
                         </div>
                     </form>
+                   
                     <p class="text-danger">@TempData["Error"]</p>
                     <p class="text-success">@TempData["Message"]</p>
                 </div>

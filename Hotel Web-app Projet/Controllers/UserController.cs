@@ -22,9 +22,8 @@ namespace Hotel_Web_app_Projet.Controllers
                 TempData["person"] = person;
                 
             }
-           
             ViewBag.UserDetails = context.Users.Find(UserID);
-            //Boolean a = ViewBag.UserDetails.Gender;
+            
             return View();
         }
 

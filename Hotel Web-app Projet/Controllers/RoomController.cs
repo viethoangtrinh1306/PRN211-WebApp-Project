@@ -12,19 +12,27 @@ namespace Hotel_Web_app_Projet.Controllers
 {
     public class RoomController : Controller
     {
-        HotelWebsiteContext context = new();
-        public void getSession()
+        HotelWebsiteContext context = new HotelWebsiteContext() ;
+        public void GetSession()
         {
             if (HttpContext.Session.GetString("user") != null)
             {
-                TempData["user"] = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("user"));
+                Account account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("user"));
+                TempData["user"] = account;
                 User person = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("person"));
                 TempData["person"] = person;
             }
+            
+        }
+        public override ViewResult View()
+        {
+            ViewBag.RoomTypes = context.RoomTypes.ToList();
+            return base.View();
         }
 
         public IActionResult Index(int page, int roomType, string sortByPrice, int price, int guest)
         {
+            
             IQueryable<Room> rooms = context.Rooms.AsQueryable();
             string query = null;
 
@@ -65,7 +73,7 @@ namespace Hotel_Web_app_Projet.Controllers
             {
                 page = (int)pageNumber;
             }
-
+            GetSession();
             ViewBag.query = query;
             ViewBag.sortByPrice = sortByPrice;
             ViewBag.TypeId = roomType;
@@ -80,15 +88,33 @@ namespace Hotel_Web_app_Projet.Controllers
 
         public IActionResult RoomDetails(int roomId)
         {
-            getSession();
+            GetSession();
             Room r = context.Rooms.Find(roomId);
             ViewBag.RoomDetails = r;
             return View();
+        }
+        public bool checkRoom(DateTime dateIn , DateTime dateOut, int roomId)
+        {
+            var bookList = (from b in context.Bookings
+                            where b.RoomId == roomId
+                            && ((b.DateFrom < dateIn && dateIn < b.DateFrom)
+                            || (dateIn <= b.DateFrom && b.DateTo <= dateOut)
+                            || (b.DateFrom <= dateOut && b.DateTo > dateOut))
+                            select b).ToList();
+            if (bookList.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         [HttpPost]
         public IActionResult Check()
         {
+            GetSession();
             int roomID = int.Parse(Request.Form["roomID"]);
             DateTime dateIn = DateTime.Parse(String.Format("{0}", Request.Form["dateIn"]));
             DateTime dateOut = DateTime.Parse(String.Format("{0}", Request.Form["dateOut"]));
@@ -100,21 +126,13 @@ namespace Hotel_Web_app_Projet.Controllers
             }
             else
             { 
-                var bookList = (from b in context.Bookings
-                                where b.RoomId == 1
-                                && ((b.DateFrom < dateIn && dateIn < b.DateFrom)
-                                || (dateIn <= b.DateFrom && b.DateTo <= dateOut)
-                                || (b.DateFrom <= dateOut && b.DateTo > dateOut))
-                                select b ).ToList();
-                if (bookList.Count == 0)
+                if (checkRoom(dateIn,dateOut,roomID))
                 {
-                    TempData["Message"] = "Available room!";
-                    
+                    TempData["Message"] = "Available room!";      
                 }
                 else
                 {
                     TempData["Message"] = "Room not available!";
-
                 }
 
             }
@@ -130,7 +148,7 @@ namespace Hotel_Web_app_Projet.Controllers
             }
             else
             {
-                getSession();
+                GetSession();
             }
             ViewBag.RoomDetails = context.Rooms.Find(roomId);
             return View();  
@@ -139,8 +157,43 @@ namespace Hotel_Web_app_Projet.Controllers
         [HttpPost]
         public IActionResult Booking()
         {
-            getSession();
-            return View();
+
+            DateTime dateIn = DateTime.Parse(String.Format("{0}", Request.Form["dateIn"]));
+            DateTime dateOut = DateTime.Parse(String.Format("{0}", Request.Form["dateOut"]));
+            int roomID = int.Parse(Request.Form["roomID"]);
+            int userId = int.Parse(Request.Form["userId"]);
+            if ((dateIn.CompareTo(dateOut)) > 0)
+            {
+                TempData["Error"] = "Check Out date must greater than Check In date";
+                return RedirectToAction("booking", "room", new { roomId = roomID });
+            }
+            else if (!checkRoom(dateIn, dateOut, roomID))
+            {
+                TempData["Error"] = "Sorry. This room not available on these days!";
+                return RedirectToAction("booking", "room", new { roomId = roomID });
+            }
+            else
+            {
+                DateTime bookingDate = DateTime.Now;
+                Room r = context.Rooms.Find(roomID);
+                int guest = r.Type.Capacity;
+                double cost = (dateOut - dateIn).Days * r.Type.Price;
+
+                Booking booking = new Booking
+                {
+                    BookingDate = bookingDate,
+                    UserId = userId,
+                    RoomId = roomID,
+                    DateFrom = dateIn,
+                    DateTo = dateOut,
+                    People = guest,
+                    Total = cost
+                };
+                context.Bookings.Add(booking);
+                context.SaveChanges();
+                return RedirectToAction("index", "home");
+            }
+            
         }
     }
 }
