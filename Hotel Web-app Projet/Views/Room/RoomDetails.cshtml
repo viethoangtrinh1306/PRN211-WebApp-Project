@@ -1,6 +1,6 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http;
+@{
     var details = ViewBag.RoomDetails;
-
 }
 <!-- Breadcrumb Section Begin -->
 <div class="breadcrumb-section">
@@ -19,7 +19,6 @@
     </div>
 </div>
 <!-- Breadcrumb Section End -->
-
 <!-- Room Details Section Begin -->
 <section class="room-details-section spad">
     <div class="container">
@@ -38,7 +37,14 @@
                                     <i class="icon_star"></i>
                                     <i class="icon_star-half_alt"></i>
                                 </div>
-                                <a href="/Room/Booking?roomId=@details.RoomId">Booking Now</a>
+                                @if (Context.Session.GetString("user") != null)
+                                {
+                                    <a href="/Room/Booking?roomId=@details.RoomId">Booking Now</a>
+                                }
+                                else
+                                {
+                                    <a href="/Account/login" onclick="return confirm('You must login first!')">Booking Now</a>
+                                }
                             </div>
                         </div>
                         <h2>@details.Type.Price$<span>/Pernight</span></h2>
@@ -91,7 +97,6 @@
                             <button type="submit">Check Availability</button>
                         </div>
                     </form>
-                   
                     <p class="text-danger">@TempData["Error"]</p>
                     <p class="text-success">@TempData["Message"]</p>
                 </div>
@@ -100,7 +105,3 @@
     </div>
 </section>
 <!-- Room Details Section End -->
-
-
-
-

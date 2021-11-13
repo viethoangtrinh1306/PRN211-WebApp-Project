@@ -1,7 +1,15 @@
 ﻿@using Hotel_Web_app_Projet.Models;
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
 @{
     var details = ViewBag.RoomDetails;
-    var person = TempData["person"] as User;
+    Account account = null;
+    User user = null;
+    if (Context.Session.GetString("account") != null && Context.Session.GetString("user") != null)
+    {
+        account = JsonConvert.DeserializeObject<Account>(Context.Session.GetString("account"));
+        user = JsonConvert.DeserializeObject<User>(Context.Session.GetString("user"));
+    }
 }
 <!-- Breadcrumb Section Begin -->
 <div class="breadcrumb-section">
@@ -11,8 +19,8 @@
                 <div class="breadcrumb-text">
                     <h2>Check Out</h2>
                     <div class="bt-option">
-                        <a href="./home.html">Home</a>
-                        <span>Checkout</span>
+                        <a href="Home">Home</a>
+                        <span>Reservation</span>
                     </div>
                 </div>
             </div>
@@ -30,13 +38,13 @@
                 }
             </style>
             <div class="col-md-8">
-                <h3 class="mb-3">Billing address</h3>
+                <h3 class="mb-3">Billing Address</h3>
                 <form class="needs-validation" novalidate action="booking" method="post">
                     <input type="hidden" value="@details.RoomId" name="roomID" />
-                    <input type="hidden" value="@person.UserId" name="userId" />
+                    <input type="hidden" value="@user.UserId" name="userId" />
                     <div class="mb-3">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" value="@person.Name">
+                        <input type="text" class="form-control" id="name" value="@user.Name">
                         <div class="invalid-feedback" style="width: 100%;">
                             Your name is required.
                         </div>
@@ -44,7 +52,7 @@
 
                     <div class="mb-3">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" value="@person.Email">
+                        <input type="email" class="form-control" id="email" value="@user.Email">
                         <div class="invalid-feedback">
                             Please enter a valid email address.
                         </div>
@@ -52,7 +60,7 @@
 
                     <div class="mb-3">
                         <label for="phone">Phone</label>
-                        <input type="text" class="form-control" id="phone" value="@person.Phone">
+                        <input type="text" class="form-control" id="phone" value="@user.Phone">
                         <div class="invalid-feedback">
                             Please enter your phone number.
                         </div>
@@ -69,14 +77,14 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="date-out">Check Out:</label><br>
-                            <input type="text" class="date-input" name="dateOut" id="date-out" required style="height: 38px; border-radius: 3px; width: 360px; padding: 6px 12px; " />
+                            <input type="text" class="date-input" name="dateOut" id="date-out" required style="height: 38px; border-radius: 3px; width: 360px; padding: 6px 12px;" onchange="countTotal()" />
                             <div class="invalid-feedback">
                                 Please enter your Check Out date.
                             </div>
                         </div>
                     </div>
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit" style="background-color: #eb7;font-weight:bold;border:2px solid white;">Continue to checkout</button>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" style="background-color: #eb7;font-weight:bold;border:2px solid white;">Booking Now</button>
                 </form>
             </div>
             <div class="col-lg-4">
@@ -85,7 +93,7 @@
                     <div class="room-item">
                         <img src="@details.Image" alt="" width="360px" height="240px">
                         <div class="ri-text">
-                            <h4>Room @details.Name</h4>
+                            <h4>@details.Name</h4>
                             <h3>@details.Type.Price$<span>/Pernight</span></h3>
                             <table>
                                 <tbody>
@@ -115,13 +123,13 @@
         </div>
     </div>
 </section>
-@*<script>
-        function countTotal() {
-            var dateIn = new Date(document.getElementById("date_in").nodeValue);
-            var dateOut = new Date(document.getElementById("date_out").nodeValue);
-            var dateDiff = Math.ceil((dateOut - dateIn)/(1000*3600*24));
-            var total = dateDiff details.Type.Price;
-            document.getElementById("totalPrice").innerHTML = "Total: " + total + "$";
-        }
-    </script>*@
+<script>
+    function countTotal() {
+        var dateIn = new Date(document.getElementById("date_in").nodeValue);
+        var dateOut = new Date(document.getElementById("date_out").nodeValue);
+        var dateDiff = Math.ceil((dateOut - dateIn) / (1000 * 3600 * 24));
+        var total = dateDiff * @details.Type.Price;
+        document.getElementById("totalPrice").innerHTML = "Total: " + total + "$";
+    }
+</script>
 <!-- Room Details Section End -->

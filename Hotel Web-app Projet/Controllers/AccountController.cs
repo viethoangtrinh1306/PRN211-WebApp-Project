@@ -22,21 +22,24 @@ namespace Hotel_Web_app_Projet.Controllers
         [HttpPost]
         public IActionResult Login(String username , String password)
         {
-            
             var accounts = context.Accounts.ToList();
-           
             if (ModelState.IsValid)
             {
-                var query = (from a in accounts where a.Username.Equals(username) && a.Password.Equals(password) select a).FirstOrDefault();
-                Account account = query==null?null: (from a in accounts where a.Username.Equals(username) && a.Password.Equals(password) select a).Single();
-                if (account != null)
+                Account account = context.Accounts.Where(a => a.Username == username && a.Password == password).FirstOrDefault();
+                if (account != null && account.AuthorId == 1)
                 {
                     //add session
-                    User user = (from u in context.Users.ToList() where u.Account == account select u).Single();
-                    
-                    HttpContext.Session.SetString("user", JsonConvert.SerializeObject(account));
-                    HttpContext.Session.SetString("person", JsonConvert.SerializeObject(user));
-                    return RedirectToAction("Index", "home");
+                    User user = context.Users.Where(u => u.AccountId == account.AccountId).FirstOrDefault();
+                    HttpContext.Session.SetString("account", JsonConvert.SerializeObject(account));
+                    HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
+                    return RedirectToAction("Index", "Home");
+                }else if (account != null && account.AuthorId == 2)
+                {
+                    //add session
+                    User user = context.Users.Where(u => u.AccountId == account.AccountId).FirstOrDefault();
+                    HttpContext.Session.SetString("account", JsonConvert.SerializeObject(account));
+                    HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
+                    return RedirectToAction("UserManagement", "Admin");
                 }
                 else
                 {
@@ -47,13 +50,11 @@ namespace Hotel_Web_app_Projet.Controllers
             return View();
         }
 
-
         //Logout
         public ActionResult Logout()
         {
             HttpContext.Session.Remove("user");
             return RedirectToAction("Index", "home");
-
         }
 
         public IActionResult Signup()

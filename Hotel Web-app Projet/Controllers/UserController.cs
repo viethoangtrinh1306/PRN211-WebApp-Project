@@ -15,15 +15,7 @@ namespace Hotel_Web_app_Projet.Controllers
 
         public IActionResult UserDetails(int UserID)
         {
-            if (HttpContext.Session.GetString("user") != null)
-            {
-                TempData["user"] = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("user"));
-                User person = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("person"));
-                TempData["person"] = person;
-                
-            }
             ViewBag.UserDetails = context.Users.Find(UserID);
-            
             return View();
         }
 

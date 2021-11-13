@@ -10,27 +10,25 @@ namespace Hotel_Web_app_Projet.Controllers
     public class AdminController : Controller
     {
         HotelWebsiteContext context = new();
-        public IActionResult Index()
+        public override ViewResult View()
         {
-            return View();
+            ViewBag.RoomTypes = context.RoomTypes.ToList();
+            return base.View();
         }
-
-        public IActionResult AdminRoomManagement()
-        {
-            ViewBag.RoomList = context.Rooms.ToList();
-            return View();
-        }
-        public IActionResult AdminUserManagement()
+        public IActionResult UserManagement()
         {
             ViewBag.UserList = context.Users.ToList();
             return View();
         }
-
-        public IActionResult AdminBookingListManagement()
+        public IActionResult RoomManagement()
+        {
+            ViewBag.RoomList = context.Rooms.ToList();
+            return View();
+        }
+        public IActionResult BookingManagement()
         {
             ViewBag.BookingList = context.Bookings.ToList();
             return View();
         }
     }
-
 }

@@ -86,18 +86,15 @@
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-                    <a class="navbar-brand" href="dashboard.html" style="height:60px">
+                    <a class="navbar-brand" href="#" style="height:60px; margin-left:54px">
                         <b class="logo-icon">
-                            <img src="/Admin Assets/plugins/images/logo-icon.png" alt="homepage" />
+                            <img src="/Assets/img/logo.png" alt="homepage" />
                         </b>
-                        <span class="logo-text">
-                            <img src="/Admin Assets/plugins/images/logo-text.png" alt="homepage" />
-                        </span>
                     </a>
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                 </div>
-                <div  style="width:72%"></div>
+                <div style="width:72%"></div>
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
                     <ul class="navbar-nav d-none d-md-block d-lg-none">
                         <li class="nav-item">
@@ -123,28 +120,28 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Admin/AdminUserManagement"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Admin/UserManagement"
                                aria-expanded="false">
                                 <i class="fas fa-user" aria-hidden="true"></i>
                                 <span class="hide-menu">Users Management</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Admin/AdminRoomManagement"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Admin/RoomManagement"
                                aria-expanded="false">
                                 <i class="fas fa-bed" aria-hidden="true"></i>
                                 <span class="hide-menu">Rooms Management</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Admin/AdminBookingListManagement"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Admin/BookingManagement"
                                aria-expanded="false">
                                 <i class="fas fa-book" aria-hidden="true"></i>
                                 <span class="hide-menu">Booking Management</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Login/Logout"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Account/logout"
                                aria-expanded="false">
                                 <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                                 <span class="hide-menu">Logout</span>
@@ -159,7 +156,7 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Room List</h4>
+                        <h4 class="page-title">Booking Management</h4>
                     </div>
                 </div>
             </div>
@@ -168,88 +165,79 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             <div class="row">
-                                <h3 class="col-sm-10 box-title">Room list</h3>
+                                <h3 class="col-sm-10 box-title">Booking list</h3>
                                 <div class="col-sm-2">
-                                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal" style="font-size:16px"><span style="margin: 5px auto">Add Room</span></a>
                                 </div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
+                                            <th class="border-top-0">Booking ID</th>
+                                            <th class="border-top-0">User ID</th>
                                             <th class="border-top-0">Room ID</th>
-                                            <th class="border-top-0">Room Name</th>
-                                            <th class="border-top-0">Room Position</th>
-                                            <th class="border-top-0">Room Type</th>
-                                            <th class="border-top-0">Room Image</th>
-                                            <th class="border-top-0">Edit/Delete</th>
+                                            <th class="border-top-0">Booking Date</th>
+                                            <th class="border-top-0">Date Booked From</th>
+                                            <th class="border-top-0">Number of people</th>
+                                            <th class="border-top-0">Total</th>
+                                            <th class="border-top-0">View</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in ViewBag.RoomList)
+                                        @foreach (var item in ViewBag.BookingList)
                                         {
                                             <tr>
+                                                <td>@item.BookingId</td>
+                                                <td>@item.UserId</td>
                                                 <td>@item.RoomId</td>
-                                                <td>@item.Name</td>
-                                                <td>@item.Position</td>
-                                                <td>@item.TypeId</td>
-                                                <td><img style="width:150px" src="@item.Image" /></td>
+                                                <td>@item.BookingDate.ToShortDateString()</td>
+                                                <td>@item.DateFrom.ToShortDateString() to @item.DateTo.ToShortDateString()</td>
+                                                <td>@item.People</td>
+                                                <td>@item.Total $</td>
                                                 <td>
-                                                    <a href="#editRoomModal-@item.RoomId" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                                    <a href="#deleteRoomModal-@item.RoomId" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                    <a href="#editRoomModal-@item.BookingId" class="edit" data-toggle="modal"><i class="fa fa-eye" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                                 </td>
                                             </tr>
-                                            <div id="editRoomModal-@item.RoomId" class="modal fade">
+                                            <div id="editRoomModal-@item.BookingId" class="modal fade">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <form>
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title">Edit Room</h4>
+                                                                <h4 class="modal-title">View</h4>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label>Room Id</label>
+                                                                    <label>BookingId</label>
+                                                                    <input type="text" class="form-control" value="@item.BookingId" readonly>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>UserId</label>
+                                                                    <input type="text" class="form-control" value="@item.UserId" readonly>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>RoomId</label>
                                                                     <input type="text" class="form-control" value="@item.RoomId" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Name</label>
-                                                                    <input type="text" class="form-control" value="@item.Name" required>
+                                                                    <label>Booking Date</label>
+                                                                    <input type="text" class="form-control" value="@item.BookingDate.ToShortDateString()" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Position</label>
-                                                                    <input type="text" class="form-control" value="@item.Position" required>
+                                                                    <label>Booking from</label>
+                                                                    <input type="text" class="form-control" value="@item.DateFrom.ToShortDateString()" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>TypeId</label>
-                                                                    <input type="text" class="form-control" value="@item.TypeId" required>
+                                                                    <label>Booking to</label>
+                                                                    <input type="text" class="form-control" value="@item.DateTo.ToShortDateString()" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Image</label>
-                                                                    <input type="text" class="form-control" value="@item.Image" required>
+                                                                    <label>People</label>
+                                                                    <input type="text" class="form-control" value="@item.People" readonly>
                                                                 </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                                                <input type="submit" class="btn btn-info" value="Save">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="deleteRoomModal-@item.RoomId" class="modal fade">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <form>
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Delete Room</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p>Are you sure you want to delete Room @item.Name?</p>
-                                                                <p class="text-warning"><small>This action cannot be undone.</small></p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                                                <input type="submit" class="btn btn-danger" value="Delete">
+                                                                <div class="form-group">
+                                                                    <label>Total</label>
+                                                                    <input type="text" class="form-control" value="@item.Total" readonly>
+                                                                </div>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -258,51 +246,61 @@
                                         }
                                     </tbody>
                                 </table>
-                                <div id="addEmployeeModal" class="modal fade">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form>
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Add Room</h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label>Name</label>
-                                                        <input type="text" class="form-control" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Position</label>
-                                                        <input type="email" class="form-control" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>TypeId</label>
-                                                        <textarea class="form-control" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                                    <input type="submit" class="btn btn-success" value="Add">
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
             </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
             <footer class="footer text-center">
-                
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+                All rights reserved | This template is made with
+                <i class="fa fa-heart" aria-hidden="true"></i> by
+                <a href="#" target="_blank">Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
         </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
     </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
     <script src="/Admin Assets/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
     <script src="/Admin Assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/Admin Assets/js/app-style-switcher.js"></script>
+    <!--Wave Effects -->
     <script src="/Admin Assets/js/waves.js"></script>
+    <!--Menu sidebar -->
     <script src="/Admin Assets/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
     <script src="/Admin Assets/js/custom.js"></script>
 </body>
 
