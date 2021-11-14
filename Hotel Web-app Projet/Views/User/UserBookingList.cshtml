@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@{
+    Account account = null;
+    User user = null;
+    if (Context.Session.GetString("account") != null && Context.Session.GetString("user") != null)
+    {
+        account = JsonConvert.DeserializeObject<Account>(Context.Session.GetString("account"));
+        user = JsonConvert.DeserializeObject<User>(Context.Session.GetString("user"));
+    }
+}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+            <div class="my-4">
+                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                    <li class="nav-item ">
+                        <a class="nav-link" id="home-tab" href="/User/UserDetails" role="tab">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="home-tab" href="/User/ChangePassword" role="tab">Change Password</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" href="/User/UserBookingList" role="tab">Booking History</a>
+                    </li>
+                </ul>
+                <div class="row mt-5 align-items-center">
+                    <div class="appointments">
+                        <div class="appointment-list">
+                            @foreach (var item in ViewBag.BookingList)
+                            {
+                                <div style="display: flex; width: 100%; border-bottom: 1px solid #eb7;">
+                                    <div style="width:35%;padding:20px;">
+                                        <img class="card-img-top" src="@item.Room.Image" alt="Card image cap">
+                                    </div>
+                                    <div style="width:65%;padding:20px;">
+                                        <h4 class="card-title" style="color: #eb7">Room @item.Room.Name</h4>
+                                        <p class="card-text" style="margin:2px 0"><b>Booked date: </b>@item.BookingDate.ToShortDateString()</p>
+                                        <p class="card-text" style="margin:2px 0"><b>Booked time: </b>@item.DateFrom.ToShortDateString() to @item.DateTo.ToShortDateString()</p>
+                                        <p class="card-text" style="margin:2px 0"><b>Number of People: </b>@item.People</p>
+                                        <p class="card-text" style="margin:2px 0"><b>Total price: </b>@item.Total $</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

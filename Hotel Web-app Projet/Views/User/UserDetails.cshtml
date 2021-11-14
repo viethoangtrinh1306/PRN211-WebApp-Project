@@ -26,69 +26,76 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+            
             <div class="my-4">
                 <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="/User/userDetails" role="tab" aria-controls="home" aria-selected="false">My Profile</a>
+                    <li class="nav-item ">
+                        <a class="nav-link active" id="home-tab" href="/User/UserDetails" role="tab"  >My Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="/User/changePassword" role="tab" aria-controls="home" aria-selected="false">Booking History</a>
+                        <a class="nav-link" id="home-tab"  href="/User/ChangePassword" role="tab"  >Change Password</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="/User/bookingHistory" role="tab" aria-controls="home" aria-selected="false">Change Password</a>
+                        <a class="nav-link" id="home-tab"  href="/User/UserBookingList" role="tab" >Booking History</a>
                     </li>
                 </ul>
-                <div class="row mt-5 align-items-center">
-                    <div class="col">
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <label class="badge">Name</label>
-                                <input type="text" class="form-control" value="@user.Name" />
+
+                <form method="post" action="update">
+                    <div class="row mt-5 align-items-center">
+                        <div class="col">
+                            <h3 class="text-danger">@ViewBag.Error</h3>
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <label class="badge">Name</label>
+                                    <input type="text" name="name" class="form-control" value="@user.Name" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <label class="badge">Email</label>
-                                <input type="email" class="form-control" value="@user.Email" style="color: #eb7 !important;" readonly />
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <label class="badge">Email</label>
+                                    <input type="email" class="form-control" value="@user.Email" style="color: #eb7 !important;" readonly />
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <label class="badge">Gender</label><br />
-                                @if (user.Gender == true)
-                                {
-                                    <input id="radio-gender" type="radio" name="gender" value="1" checked><span>Male</span>
-                                    <input id="radio-gender" type="radio" name="gender" value="0" style="margin-left: 50px"><span>Female</span>
-                                }
-                                @if (user.Gender != true)
-                                {
-                                    <input id="radio-gender" type="radio" name="gender" value="1"><span>Male</span>
-                                    <input id="radio-gender" type="radio" name="gender" value="0" checked style="margin-left: 50px"><span>Female</span>
-                                }
-                                <style>
-                                    #radio-gender {
-                                        margin-right: 4px;
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <label class="badge">Gender</label><br />
+                                    @if (user.Gender == true)
+                                    {
+                                        <input id="radio-gender" type="radio" name="gender" value="true" checked><span>Male</span>
+                                        <input id="radio-gender" type="radio" name="gender" value="false" style="margin-left: 50px"><span>Female</span>
                                     }
-                                </style>
+                                    @if (user.Gender != true)
+                                    {
+                                        <input id="radio-gender" type="radio" name="gender" value="true"><span>Male</span>
+                                        <input id="radio-gender" type="radio" name="gender" value="false" checked style="margin-left: 50px"><span>Female</span>
+                                    }
+                                    <style>
+                                        #radio-gender {
+                                            margin-right: 4px;
+                                        }
+                                    </style>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <label class="badge">Date of Birth</label>
-                                <input name="dob" type="datetime" class="form-control" value="@user.Dob" />
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <label class="badge">Date of Birth</label>
+                                    <input name="dob" type="datetime" class="form-control" value="@user.Dob" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <label class="badge">Phone Number</label>
-                                <input name="phone" type="text" class="form-control" value="@user.Phone" required="" />
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <label class="badge">Phone Number</label>
+                                    <input name="phone" type="text" class="form-control" value="@user.Phone" required="" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-                <hr class="my-4" />
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <hr class="my-4" />
+                </form>
             </div>
+           
+            
         </div>
     </div>
 

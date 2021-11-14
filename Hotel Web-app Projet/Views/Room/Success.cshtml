@@ -1,0 +1,54 @@
+﻿@using Hotel_Web_app_Projet.Models;
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@{
+    var details = ViewBag.RoomDetails;
+    Account account = null;
+    User user = null;
+    if (Context.Session.GetString("account") != null && Context.Session.GetString("user") != null)
+    {
+        account = JsonConvert.DeserializeObject<Account>(Context.Session.GetString("account"));
+        user = JsonConvert.DeserializeObject<User>(Context.Session.GetString("user"));
+    }
+}
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Reservation</h2>
+                    <div class="bt-option">
+                        <a href="Home">Home</a>
+                        <span>Reservation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+<div class="content success-page-cont">
+    <div class="container-fluid">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+
+                <!-- Success Card -->
+                <div class=" success-card">
+                    <div class="card-body">
+                        <div class="success-cont">
+                            <i class="fas fa-check"></i>
+                            <h3>Appointment booked Successfully!</h3>
+                            <br />
+                            <a href="/home/index" class="btn btn-success view-inv-btn">Go to homepage</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Success Card -->
+
+            </div>
+        </div>
+
+    </div>
+</div>		
