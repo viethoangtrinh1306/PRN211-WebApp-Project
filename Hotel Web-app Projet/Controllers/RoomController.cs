@@ -21,7 +21,6 @@ namespace Hotel_Web_app_Projet.Controllers
 
         public IActionResult Index(int page, int roomType, string sortByPrice, int price, int guest)
         {
-            
             IQueryable<Room> rooms = context.Rooms.AsQueryable();
             string query = null;
 
