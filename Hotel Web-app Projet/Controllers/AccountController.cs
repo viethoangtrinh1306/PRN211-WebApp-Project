@@ -62,7 +62,9 @@ namespace Hotel_Web_app_Projet.Controllers
         //Logout
         public ActionResult Logout()
         {
+            HttpContext.Session.Remove("account");
             HttpContext.Session.Remove("user");
+
             return RedirectToAction("Index", "home");
         }
 

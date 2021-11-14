@@ -21,15 +21,26 @@ namespace Hotel_Web_app_Projet.Controllers
             ViewBag.Accounts = context.Accounts.ToList();
             return base.View();
         }
-
+        public bool TestSession()
+        {
+          if (HttpContext.Session.GetString("account") != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public bool IsAdmin()
         {
             Account account = new Account();
+            
             if (HttpContext.Session.GetString("account") != null)
             {
                 account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("account"));
             }
-            if (account.AuthorId != 2)
+            if (account!= null && account.AuthorId != 2)
             {
                 return false;
             }
@@ -37,7 +48,7 @@ namespace Hotel_Web_app_Projet.Controllers
         }
         public IActionResult UserManagement(int page)
         {
-            if (IsAdmin())
+            if (IsAdmin() && TestSession()) 
             {
                 //Pagination
                 int pageSize = 10;
@@ -88,7 +99,7 @@ namespace Hotel_Web_app_Projet.Controllers
         [HttpGet]
         public IActionResult RoomManagement(int page)
         {
-            if (IsAdmin())
+            if (IsAdmin() && TestSession())
             {
                 //Pagination
                 int pageSize = 10;
@@ -117,7 +128,7 @@ namespace Hotel_Web_app_Projet.Controllers
         [HttpPost]
         public IActionResult RoomManagement(string action)
         {
-            if (IsAdmin())
+            if (IsAdmin() && TestSession())
             {
                 if (action == "add")
                 {
@@ -168,7 +179,7 @@ namespace Hotel_Web_app_Projet.Controllers
 
         public IActionResult BookingManagement(int page)
         {
-            if (IsAdmin())
+            if (IsAdmin() && TestSession())
             {
                 //Pagination
                 int pageSize = 10;
