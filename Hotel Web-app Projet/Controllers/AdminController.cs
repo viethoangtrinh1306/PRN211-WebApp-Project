@@ -1,23 +1,41 @@
 ﻿using Hotel_Web_app_Projet.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using X.PagedList;
 
 namespace Hotel_Web_app_Projet.Controllers
 {
     public class AdminController : Controller
     {
+      
         HotelWebsiteContext context = new();
         public override ViewResult View()
         {
+
             ViewBag.RoomTypes = context.RoomTypes.ToList();
             ViewBag.Accounts = context.Accounts.ToList();
             return base.View();
         }
-        public IActionResult UserManagement(int page)
+
+        public bool IsAdmin()
+        {
+            Account account = new Account();
+            if (HttpContext.Session.GetString("account") != null)
+            {
+                account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("account"));
+            }
+            if (account.AuthorId != 2)
+            {
+                return false;
+            }
+            else { return true; }
+        }
+        public IActionResult UserManagement()
         {
             //Pagination
             int pageSize = 10;

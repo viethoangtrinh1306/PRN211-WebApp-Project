@@ -80,7 +80,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="date-out">Check Out:</label><br>
-                            <input type="text" class="date-input" name="dateOut" id="date-out" required style="height: 38px; border-radius: 3px; width: 360px; padding: 6px 12px;" onchange="countTotal()" />
+                            <input type="text" class="date-input" name="dateOut" id="date-out" required style="height: 38px; border-radius: 3px; width: 360px; padding: 6px 12px;" />
                             <div class="invalid-feedback">
                                 Please enter your Check Out date.
                             </div>
@@ -118,7 +118,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <h4 id="totalPrice">Total: 50$</h4>
+           
                         </div>
                     </div>
                 </div>
@@ -126,13 +126,5 @@
         </div>
     </div>
 </section>
-<script>
-    function countTotal() {
-        var dateIn = new Date(document.getElementById("date_in").nodeValue);
-        var dateOut = new Date(document.getElementById("date_out").nodeValue);
-        var dateDiff = Math.ceil((dateOut - dateIn) / (1000 * 3600 * 24));
-        var total = dateDiff * @details.Type.Price;
-        document.getElementById("totalPrice").innerHTML = "Total: " + total + "$";
-    }
-</script>
+
 <!-- Room Details Section End -->
