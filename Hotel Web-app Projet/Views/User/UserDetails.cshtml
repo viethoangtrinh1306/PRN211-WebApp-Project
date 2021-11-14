@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @using Newtonsoft.Json;
+@using Hotel_Web_app_Projet.Models;
 @{
     Account account = null;
     User user = null;
@@ -22,32 +23,40 @@
         border: 1px solid white !important;
         background-color: #eb7 !important;
     }
+
+    .error_mess {
+        color: red;
+        padding-left: 5px;
+    }
 </style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8 mx-auto">
-            
+
             <div class="my-4">
                 <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
                     <li class="nav-item ">
-                        <a class="nav-link active" id="home-tab" href="/User/UserDetails" role="tab"  >My Profile</a>
+                        <a class="nav-link active" id="home-tab" href="/User/UserDetails" role="tab">My Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="home-tab"  href="/User/ChangePassword" role="tab"  >Change Password</a>
+                        <a class="nav-link" id="home-tab" href="/User/ChangePassword" role="tab">Change Password</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="home-tab"  href="/User/UserBookingList" role="tab" >Booking History</a>
+                        <a class="nav-link" id="home-tab" href="/User/UserBookingList" role="tab">Booking History</a>
                     </li>
                 </ul>
 
                 <form method="post" action="update">
                     <div class="row mt-5 align-items-center">
                         <div class="col">
-                            <h3 class="text-danger">@ViewBag.Error</h3>
+                            <span class="error_mess" style="color: green; padding-left: 5px; font-size: 14px; font-family:sans-serif;">@TempData["mess"]</span>
+                            <br />
                             <div class="row mb-4">
                                 <div class="col-md-12">
-                                    <label class="badge">Name</label>
-                                    <input type="text" name="name" class="form-control" value="@user.Name" />
+
+                                    <label class="badge">Name</label> <span id="name_error" class="error_mess"></span>
+                                    <input type="text" name="name" id="name" class="form-control" value="@user.Name" />
+
                                 </div>
                             </div>
                             <div class="row mb-4">
@@ -76,27 +85,80 @@
                                     </style>
                                 </div>
                             </div>
+
                             <div class="row mb-4">
                                 <div class="col-md-12">
-                                    <label class="badge">Date of Birth</label>
-                                    <input name="dob" type="datetime" class="form-control" value="@user.Dob" />
+                                    <label class="badge">Date of Birth</label><span id="dob_error" class="error_mess"></span>
+                                    <input name="dob" id="dob" type="datetime" class="form-control" value="@String.Format("{0:d}", @user.Dob)" />
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-md-12">
-                                    <label class="badge">Phone Number</label>
-                                    <input name="phone" type="text" class="form-control" value="@user.Phone" required="" />
+                                    <label class="badge">Phone Number</label> <span id="phone_error" class="error_mess"></span>
+                                    <input name="phone" id="phone" type="text" class="form-control" value="@user.Phone" required="" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" onclick="return validate();" id="btn" class="btn btn-primary">Save Changes</button>
                     <hr class="my-4" />
                 </form>
             </div>
-           
-            
+
+
         </div>
     </div>
 
 </div>
+
+<script>
+    function getValue(id) {
+        return document.getElementById(id).value.trim();
+    }
+
+    function showError(key, mess) {
+        document.getElementById(key + '_error').innerHTML = mess;
+    }
+
+    function validate() {
+        var flag = true;
+
+        var name = getValue('name');
+
+        if (name == '' || name.length < 5) {
+            flag = false;
+            showError('name', 'input more than 5 and not special character!!!');
+        }
+        else if (!/^[a-zA-Z' ']+$/.test(name)) {
+            flag = false;
+            showError('name', 'not special character in name!!!');
+        }
+        else {
+            showError('name', '');
+        }
+
+        var dob = getValue('dob');
+
+        if (!/^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/.test(dob)) {
+            flag = false;
+            showError('dob', 'check format MM/dd/yyyy!!!');
+        } else if (dob.getYear() > '2000') {
+            flag = false;
+            showError('dob', 'must enough 18 years old!!!');
+        }
+        else {
+            showError('dob', '');
+        }
+
+        var phone = getValue('phone');
+        if (!/^[0-9]{10}$/.test(phone)) {
+            flag = false;
+            showError('phone', 'phone is number and 10 character!!!');
+        } else {
+            showError('phone', '');
+        }
+    
+
+        return flag;
+    }
+</script>

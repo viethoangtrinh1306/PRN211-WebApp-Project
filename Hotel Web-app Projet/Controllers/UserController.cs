@@ -24,7 +24,7 @@ namespace Hotel_Web_app_Projet.Controllers
         }
 
         [HttpPost]
-        public IActionResult update(String name, String phone, bool gender)
+        public IActionResult update(String name, String phone, bool gender, DateTime dob)
         {
             Account account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("account"));
             User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("user"));
@@ -32,14 +32,14 @@ namespace Hotel_Web_app_Projet.Controllers
             data.Name = name;
             data.Phone = phone;
             data.Gender = gender;
-
+            data.Dob = dob;
 
             context.SaveChanges();
             user = context.Users.Where(u => u.AccountId == account.AccountId).FirstOrDefault();
 
             HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
-            ViewBag.error = "Check repass again!";
-            return RedirectToAction("UserDetails", "User");
+            TempData["mess"] = "Changed success!!!";
+            return RedirectToAction("UserDetails", "User", new { user.UserId});
         }
 
         public IActionResult ChangePassword()
@@ -48,29 +48,18 @@ namespace Hotel_Web_app_Projet.Controllers
         }
 
         [HttpPost] 
-        public IActionResult ChangePassword(string pass, string newPass, string reNewPass)
+        public IActionResult ChangePassword(string newPass)
         {
             Account account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("account"));
             User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("user"));
             var data = context.Accounts.FirstOrDefault(x => x.AccountId == user.AccountId);
 
-            if(data.Password != pass)
-            {
-                ViewBag.error = "Wrong password!";
-                HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
-                return ChangePassword();
-            } 
-            if(newPass != reNewPass)
-            {
-                ViewBag.error = "Check repass again!";
-                HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
-                return ChangePassword();
-            }
             data.Password = newPass;
             context.SaveChanges();
             user = context.Users.Where(u => u.AccountId == account.AccountId).FirstOrDefault();
             HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
-            return RedirectToAction("ChangePassword", "User");
+            ViewBag.error = "Changed password success!!!";
+            return ChangePassword();
         }
 
         public IActionResult UserBookingList()
