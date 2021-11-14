@@ -13,6 +13,11 @@ namespace Hotel_Web_app_Projet.Controllers
     {
         HotelWebsiteContext context = new();
 
+        public override ViewResult View()
+        {
+            ViewBag.Rooms = context.Rooms.ToList();
+            return base.View();
+        }
         public IActionResult UserDetails()
         {
             return View();
@@ -21,9 +26,6 @@ namespace Hotel_Web_app_Projet.Controllers
         [HttpPost]
         public IActionResult update(String name, String phone, bool gender)
         {
-            
-            
-
             Account account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("account"));
             User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("user"));
             var data = context.Users.FirstOrDefault(x => x.UserId == user.UserId);
@@ -37,13 +39,10 @@ namespace Hotel_Web_app_Projet.Controllers
 
             HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
             return RedirectToAction("UserDetails", "User");
-
-            
         }
 
         public IActionResult ChangePassword()
         {
-
             return View();
         }
 
@@ -66,9 +65,16 @@ namespace Hotel_Web_app_Projet.Controllers
                 
                 return RedirectToAction("ChangePassword", "User");
             }
-
-            
             return RedirectToAction("ChangePassword", "User");
+        }
+
+        public IActionResult UserBookingList()
+        {
+            Account account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("account"));
+            User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("user"));
+
+            ViewBag.BookingList = context.Bookings.Where(b => b.UserId == user.UserId).ToList();
+            return View();
         }
     }
 }
