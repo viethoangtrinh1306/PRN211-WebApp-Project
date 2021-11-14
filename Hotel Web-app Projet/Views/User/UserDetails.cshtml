@@ -1,9 +1,26 @@
-﻿@{
-    var userDetail = ViewBag.UserDetails;
+﻿@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@{
+    Account account = null;
+    User user = null;
+    if (Context.Session.GetString("account") != null && Context.Session.GetString("user") != null)
+    {
+        account = JsonConvert.DeserializeObject<Account>(Context.Session.GetString("account"));
+        user = JsonConvert.DeserializeObject<User>(Context.Session.GetString("user"));
+    }
 }
 <style>
     .badge {
         font-size: 14px;
+    }
+
+    input {
+        border: 1px solid #eb7 !important;
+    }
+
+    button {
+        border: 1px solid white !important;
+        background-color: #eb7 !important;
     }
 </style>
 <div class="container">
@@ -12,7 +29,13 @@
             <div class="my-4">
                 <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">My Profile</a>
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="/User/userDetails" role="tab" aria-controls="home" aria-selected="false">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="/User/changePassword" role="tab" aria-controls="home" aria-selected="false">Booking History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="/User/bookingHistory" role="tab" aria-controls="home" aria-selected="false">Change Password</a>
                     </li>
                 </ul>
                 <div class="row mt-5 align-items-center">
@@ -20,24 +43,24 @@
                         <div class="row mb-4">
                             <div class="col-md-12">
                                 <label class="badge">Name</label>
-                                <input type="text" class="form-control" value="@userDetail.Name" />
+                                <input type="text" class="form-control" value="@user.Name" />
                             </div>
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-12">
                                 <label class="badge">Email</label>
-                                <input type="email" class="form-control" value="@userDetail.Email" readonly />
+                                <input type="email" class="form-control" value="@user.Email" style="color: #eb7 !important;" readonly />
                             </div>
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-12">
                                 <label class="badge">Gender</label><br />
-                                @if (userDetail.Gender == true)
+                                @if (user.Gender == true)
                                 {
                                     <input id="radio-gender" type="radio" name="gender" value="1" checked><span>Male</span>
                                     <input id="radio-gender" type="radio" name="gender" value="0" style="margin-left: 50px"><span>Female</span>
                                 }
-                                @if (userDetail.Gender != true)
+                                @if (user.Gender != true)
                                 {
                                     <input id="radio-gender" type="radio" name="gender" value="1"><span>Male</span>
                                     <input id="radio-gender" type="radio" name="gender" value="0" checked style="margin-left: 50px"><span>Female</span>
@@ -52,46 +75,19 @@
                         <div class="row mb-4">
                             <div class="col-md-12">
                                 <label class="badge">Date of Birth</label>
-                                <input name="dob" type="datetime" class="form-control" value="@userDetail.Dob.ToString("dd-MMM-yyyy")" />
+                                <input name="dob" type="datetime" class="form-control" value="@user.Dob" />
                             </div>
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-12">
                                 <label class="badge">Phone Number</label>
-                                <input name="phone" type="text" class="form-control" value="@userDetail.Phone" required="" />
+                                <input name="phone" type="text" class="form-control" value="@user.Phone" required="" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Save Changes</button>
                 <hr class="my-4" />
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="badge">Old Password</label>
-                            <input type="password" class="form-control" id="inputPassword5" />
-                        </div>
-                        <div class="form-group">
-                            <label class="badge">New Password</label>
-                            <input type="password" class="form-control" id="inputPassword5" />
-                        </div>
-                        <div class="form-group">
-                            <label class="badge">Confirm Password</label>
-                            <input type="password" class="form-control" id="inputPassword6" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="mb-2">Password requirements</p>
-                        <p class="small text-muted mb-2">To create a new password, you have to meet all of the following requirements:</p>
-                        <ul class="small text-muted pl-4 mb-0">
-                            <li>Minimum 8 character</li>
-                            <li>At least one special character</li>
-                            <li>At least one number</li>
-                            <li>Can’t be the same as a previous password</li>
-                        </ul>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
         </div>
     </div>

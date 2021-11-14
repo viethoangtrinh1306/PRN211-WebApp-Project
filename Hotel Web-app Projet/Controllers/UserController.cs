@@ -13,11 +13,14 @@ namespace Hotel_Web_app_Projet.Controllers
     {
         HotelWebsiteContext context = new();
 
-        public IActionResult UserDetails(int UserID)
+        public IActionResult UserDetails()
         {
-            ViewBag.UserDetails = context.Users.Find(UserID);
             return View();
         }
 
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
     }
 }
