@@ -12,7 +12,7 @@ namespace Hotel_Web_app_Projet.Controllers
 {
     public class AdminController : Controller
     {
-      
+
         HotelWebsiteContext context = new();
         public override ViewResult View()
         {
@@ -25,7 +25,11 @@ namespace Hotel_Web_app_Projet.Controllers
         public bool IsAdmin()
         {
             Account account = new Account();
-            if (HttpContext.Session.GetString("account") != null)
+            if (HttpContext.Session.GetString("account") == null)
+            {
+                return false;
+            }
+            else
             {
                 account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("account"));
             }
@@ -33,7 +37,14 @@ namespace Hotel_Web_app_Projet.Controllers
             {
                 return false;
             }
-            else { return true; }
+            else 
+            { 
+                return true; 
+            }
+        }
+        public IActionResult AdminDashboard()
+        {
+            return View();
         }
         public IActionResult UserManagement(int page)
         {
@@ -82,7 +93,7 @@ namespace Hotel_Web_app_Projet.Controllers
                 context.SaveChanges();
             }
             ViewBag.UserList = context.Users.ToList();
-            return RedirectToAction("UserManagement","Admin");
+            return RedirectToAction("UserManagement", "Admin");
         }
 
         [HttpGet]
@@ -133,7 +144,7 @@ namespace Hotel_Web_app_Projet.Controllers
                     context.SaveChanges();
                     TempData["message"] = "Add successfully!";
                 }
-                else if(action == "edit")
+                else if (action == "edit")
                 {
                     int roomId = int.Parse(Request.Form["roomId"]);
                     Room room = context.Rooms.SingleOrDefault(c => c.RoomId == roomId);
@@ -147,7 +158,7 @@ namespace Hotel_Web_app_Projet.Controllers
                         TempData["message"] = "Edit successfully!";
                     }
                 }
-                else if(action == "delete")
+                else if (action == "delete")
                 {
                     int roomId = int.Parse(Request.Form["roomId"]);
                     Room room = context.Rooms.SingleOrDefault(c => c.RoomId == roomId);

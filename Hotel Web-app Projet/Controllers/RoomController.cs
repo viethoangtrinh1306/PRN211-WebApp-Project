@@ -122,9 +122,8 @@ namespace Hotel_Web_app_Projet.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = "Room not available!";
+                    TempData["Error"] = "Room not available!";
                 }
-
             }
             return RedirectToAction("RoomDetails", "room", new { roomId = roomID });
         }

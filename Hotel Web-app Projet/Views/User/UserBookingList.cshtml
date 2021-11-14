@@ -23,6 +23,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" id="home-tab" href="/User/UserBookingList" role="tab">Booking History</a>
                     </li>
+                    <style>
+                        li a:hover {
+                            color: black !important;
+                        }
+                    </style>
                 </ul>
                 <div class="row mt-5 align-items-center">
                     <div class="appointments">
@@ -34,7 +39,7 @@
                                         <img class="card-img-top" src="@item.Room.Image" alt="Card image cap">
                                     </div>
                                     <div style="width:65%;padding:20px;">
-                                        <h4 class="card-title" style="color: #eb7">Room @item.Room.Name</h4>
+                                        <h4 class="card-title" style="color: #eb7">@item.Room.Name</h4>
                                         <p class="card-text" style="margin:2px 0"><b>Booked date: </b>@item.BookingDate.ToShortDateString()</p>
                                         <p class="card-text" style="margin:2px 0"><b>Booked time: </b>@item.DateFrom.ToShortDateString() to @item.DateTo.ToShortDateString()</p>
                                         <p class="card-text" style="margin:2px 0"><b>Number of People: </b>@item.People</p>

@@ -30,14 +30,19 @@
             <div class="my-4">
                 <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
                     <li class="nav-item ">
-                        <a class="nav-link active" id="home-tab" href="/User/UserDetails" role="tab"  >My Profile</a>
+                        <a class="nav-link active" id="home-tab" href="/User/UserDetails" role="tab">My Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="home-tab"  href="/User/ChangePassword" role="tab"  >Change Password</a>
+                        <a class="nav-link" id="home-tab" href="/User/ChangePassword" role="tab">Change Password</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="home-tab"  href="/User/UserBookingList" role="tab" >Booking History</a>
+                        <a class="nav-link" id="home-tab" href="/User/UserBookingList" role="tab">Booking History</a>
                     </li>
+                    <style>
+                        li a:hover {
+                            color: black !important;
+                        }
+                    </style>
                 </ul>
 
                 <form method="post" action="update">
