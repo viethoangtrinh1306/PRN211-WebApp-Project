@@ -80,13 +80,18 @@ namespace Hotel_Web_app_Projet.Controllers
             ViewBag.RoomDetails = r;
             return View();
         }
+        public IActionResult Success()
+        {
+          
+            return View();
+        }
         public bool checkRoom(DateTime dateIn , DateTime dateOut, int roomId)
         {
             var bookList = (from b in context.Bookings
                             where b.RoomId == roomId
-                            && ((b.DateFrom < dateIn && dateIn < b.DateFrom)
+                            && ((b.DateFrom <= dateIn && b.DateTo >= dateIn)
                             || (dateIn <= b.DateFrom && b.DateTo <= dateOut)
-                            || (b.DateFrom <= dateOut && b.DateTo > dateOut))
+                            || (b.DateFrom <= dateOut && b.DateTo >= dateOut))
                             select b).ToList();
             if (bookList.Count == 0)
             {
@@ -176,7 +181,7 @@ namespace Hotel_Web_app_Projet.Controllers
                 };
                 context.Bookings.Add(booking);
                 context.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("success", "room");
             } 
         }
     }
