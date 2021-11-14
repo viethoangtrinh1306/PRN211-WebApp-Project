@@ -21,17 +21,6 @@ namespace Hotel_Web_app_Projet.Controllers
             ViewBag.Accounts = context.Accounts.ToList();
             return base.View();
         }
-        public bool TestSession()
-        {
-          if (HttpContext.Session.GetString("account") != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         public bool IsAdmin()
         {
             Account account = new Account();
@@ -51,11 +40,14 @@ namespace Hotel_Web_app_Projet.Controllers
         }
         public IActionResult AdminDashboard()
         {
+            ViewBag.TotalUsers = context.Users.ToList().Count;
+            ViewBag.TotalRooms = context.Rooms.ToList().Count;
+            ViewBag.Revenue = context.Bookings.ToList().Sum(b => b.Total);
             return View();
         }
         public IActionResult UserManagement(int page)
         {
-            if (IsAdmin() && TestSession()) 
+            if (IsAdmin()) 
             {
                 //Pagination
                 int pageSize = 10;
@@ -106,7 +98,7 @@ namespace Hotel_Web_app_Projet.Controllers
         [HttpGet]
         public IActionResult RoomManagement(int page)
         {
-            if (IsAdmin() && TestSession())
+            if (IsAdmin())
             {
                 //Pagination
                 int pageSize = 10;
@@ -135,7 +127,7 @@ namespace Hotel_Web_app_Projet.Controllers
         [HttpPost]
         public IActionResult RoomManagement(string action)
         {
-            if (IsAdmin() && TestSession())
+            if (IsAdmin())
             {
                 if (action == "add")
                 {
@@ -186,7 +178,7 @@ namespace Hotel_Web_app_Projet.Controllers
 
         public IActionResult BookingManagement(int page)
         {
-            if (IsAdmin() && TestSession())
+            if (IsAdmin())
             {
                 //Pagination
                 int pageSize = 10;
