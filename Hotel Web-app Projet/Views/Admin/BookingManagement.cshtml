@@ -20,12 +20,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/Admin Assets/plugins/images/favicon.png">
     <!-- Custom CSS -->
     <link href="/Admin Assets/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -102,16 +96,6 @@
                                href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <li class=" in">
-                            <form role="search" class="app-search d-none d-md-block me-3">
-                                <input type="text" placeholder="Search..." class="form-control mt-0">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                            </form>
-                        </li>
-                    </ul>
                 </div>
             </nav>
         </header>
@@ -119,6 +103,13 @@
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Admin/AdminDashboard"
+                               aria-expanded="false">
+                                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Admin/UserManagement"
                                aria-expanded="false">
@@ -247,6 +238,17 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="room-pagination">
+                            <a href="?page=@(ViewBag.CurrentPage == 1 ? 1 : ViewBag.CurrentPage-1)">
+                                <span>Previous</span>
+                                @for (var i = 1; i <= ViewBag.Pages; i++)
+                                {
+                                    <a href="?page=@i">@i</a>
+                                }
+                                <a href="?page=@(ViewBag.CurrentPage == ViewBag.Pages ? ViewBag.Pages : ViewBag.CurrentPage+1)"><span>Next</span>
                         </div>
                     </div>
                 </div>

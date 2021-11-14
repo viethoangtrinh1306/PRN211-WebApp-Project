@@ -1,4 +1,4 @@
-@{
+﻿@{
     Layout = "_EmptyLayout";
 }
 <!DOCTYPE html>
@@ -14,64 +14,19 @@
     <meta name="description"
           content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Booking List Management</title>
+    <title>Admin Dashboard</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/Admin Assets/plugins/images/favicon.png">
     <!-- Custom CSS -->
+    <link href="/Admin Assets/plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Admin Assets/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
+    <!-- Custom CSS -->
     <link href="/Admin Assets/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        /* Modal styles */
-        .modal .modal-dialog {
-            max-width: 400px;
-        }
-
-        .modal .modal-header, .modal .modal-body, .modal .modal-footer {
-            padding: 20px 30px;
-        }
-
-        .modal .modal-content {
-            border-radius: 3px;
-        }
-
-        .modal .modal-footer {
-            background: #ecf0f1;
-            border-radius: 0 0 3px 3px;
-        }
-
-        .modal .modal-title {
-            display: inline-block;
-        }
-
-        .modal .form-control {
-            border-radius: 2px;
-            box-shadow: none;
-            border-color: #dddddd;
-        }
-
-        .modal textarea.form-control {
-            resize: vertical;
-        }
-
-        .modal .btn {
-            border-radius: 2px;
-            min-width: 100px;
-        }
-
-        .modal form label {
-            font-weight: normal;
-        }
-    </style>
 </head>
 
 <body>
@@ -89,10 +44,13 @@
     <!-- ============================================================== -->
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
          data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-                    <a class="navbar-brand" href="#" style="height: 60px; margin-left: 54px">
+                    <a class="navbar-brand" href="#" style="height:60px; margin-left:54px">
                         <b class="logo-icon">
                             <img src="/Assets/img/logo.png" alt="homepage" />
                         </b>
@@ -111,6 +69,12 @@
                 </div>
             </nav>
         </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
@@ -154,6 +118,12 @@
                 </nav>
             </div>
         </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
         <div class="page-wrapper">
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
@@ -161,7 +131,7 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Users Management</h4>
+                        <h4 class="page-title">Dashboard</h4>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -174,97 +144,71 @@
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->
-                <!-- Start Page Content -->
+                <!-- Three charts -->
                 <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <div class="row">
-                                <h3 class="col-sm-10 box-title">Users list</h3>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">User ID</th>
-                                            <th class="border-top-0">Name</th>
-                                            <th class="border-top-0">Gender</th>
-                                            <th class="border-top-0">Date of birth</th>
-                                            <th class="border-top-0">Phone</th>
-                                            <th class="border-top-0">Email</th>
-                                            <th class="border-top-0">Account Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in ViewBag.UserList)
-                                        {
-                                            <tr>
-                                                <td>@item.UserId</td>
-                                                <td>@item.Name</td>
-                                                @if (@item.Gender == true)
-                                                {
-                                                    <td>Male</td>
-                                                }
-                                                else
-                                                {
-                                                    <td>Female</td>
-                                                }
-                                                <td>@item.Dob.ToString("dd-MM-yyyy")</td>
-                                                <td>@item.Phone</td>
-                                                <td>@item.Email</td>
-                                                <td>
-                                                    <form action="ChangeAccountStatus" method="post" name="change_status">
-                                                        <div class="form-check form-switch">
-                                                            @if (item.Account.Status)
-                                                            {
-                                                                <input class="form-check-input" type="checkbox" name="status" onchange="this.form.submit();" checked>
-                                                            }
-                                                            else
-                                                            {
-                                                                <input class="form-check-input" type="checkbox" name="status" onchange="this.form.submit();">
-                                                            }
-                                                            <label class="form-check-label">Active</label>
-                                                        </div>
-                                                        <input type="hidden" name="accountId" value="@item.AccountId" />
-                                                    </form>
-                                                    <style>
-                                                        .form-check-input:checked {
-                                                            background-color: #55ce64;
-                                                            border-color: none;
-                                                        }
-
-                                                        .form-check-input {
-                                                            background-color: white;
-                                                        }
-                                                    </style>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Total Users</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash">
+                                        <canvas width="67" height="30"
+                                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-success">@ViewBag.TotalUsers</span></li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-lg-12">
-                        <div class="room-pagination">
-                            <a href="?page=@(ViewBag.CurrentPage == 1 ? 1 : ViewBag.CurrentPage-1)"><span>Previous</span>
-                            @for (var i = 1; i <= ViewBag.Pages; i++)
-                            {
-                                <a href="?page=@i">@i</a>
-                            }
-                            <a href="?page=@(ViewBag.CurrentPage == ViewBag.Pages ? ViewBag.Pages : ViewBag.CurrentPage+1)"><span>Next</span>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Total Rooms</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash2">
+                                        <canvas width="67" height="30"
+                                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-purple">@ViewBag.TotalRooms</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Revenue</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash3">
+                                        <canvas width="67" height="30"
+                                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto">
+                                    <span class="counter text-info">@ViewBag.Revenue$</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- PRODUCTS YEARLY SALES -->
                 <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Products Yearly Sales</h3>
+                            <div id="ct-visits" style="height: 405px;">
+                                <div class="chartist-tooltip" style="top: -17px; left: -12px;">
+                                    <span class="chartist-tooltip-value">6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
+                <!-- RECENT SALES -->
                 <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
@@ -302,12 +246,17 @@
     <!-- Bootstrap tether Core JavaScript -->
     <script src="/Admin Assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/Admin Assets/js/app-style-switcher.js"></script>
+    <script src="/Admin Assets/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
     <!--Wave Effects -->
     <script src="/Admin Assets/js/waves.js"></script>
     <!--Menu sidebar -->
     <script src="/Admin Assets/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="/Admin Assets/js/custom.js"></script>
+    <!--This page JavaScript -->
+    <!--chartis chart-->
+    <script src="/Admin Assets/plugins/bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="/Admin Assets/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="/Admin Assets/js/pages/dashboards/dashboard1.js"></script>
 </body>
-
 </html>

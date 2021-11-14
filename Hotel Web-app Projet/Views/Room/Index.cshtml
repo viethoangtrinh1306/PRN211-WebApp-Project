@@ -41,10 +41,10 @@
             </div>
             <div class="card-body">
                 <div class="booking-form">
-                    <form action="Room" method="get" name="sort_by_price">
+                    <form action="Room" method="get">
                         <div class="select-option">
                             <label>Sort by:</label>
-                            <select class="select" name="sortByPrice" onChange="document.sort_by_price.submit();">
+                            <select class="select" name="sortByPrice" onchange="this.form.submit();">
                                 @if (ViewBag.sortByPrice == "asc")
                                 {
                                     <option value="0">-- Select --</option>

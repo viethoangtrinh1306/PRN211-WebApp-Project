@@ -28,18 +28,27 @@ namespace Hotel_Web_app_Projet.Controllers
                 Account account = context.Accounts.Where(a => a.Username == username && a.Password == password).FirstOrDefault();
                 if (account != null && account.AuthorId == 1)
                 {
-                    //add session
-                    User user = context.Users.Where(u => u.AccountId == account.AccountId).FirstOrDefault();
-                    HttpContext.Session.SetString("account", JsonConvert.SerializeObject(account));
-                    HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
-                    return RedirectToAction("Index", "Home");
-                }else if (account != null && account.AuthorId == 2)
+                    if (account.Status)
+                    {
+                        //add session
+                        User user = context.Users.Where(u => u.AccountId == account.AccountId).FirstOrDefault();
+                        HttpContext.Session.SetString("account", JsonConvert.SerializeObject(account));
+                        HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Your account is blocked!";
+                        return Login();
+                    }
+                }
+                else if (account != null && account.AuthorId == 2)
                 {
                     //add session
                     User user = context.Users.Where(u => u.AccountId == account.AccountId).FirstOrDefault();
                     HttpContext.Session.SetString("account", JsonConvert.SerializeObject(account));
                     HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
-                    return RedirectToAction("UserManagement", "Admin");
+                    return RedirectToAction("AdminDashboard", "Admin");
                 }
                 else
                 {
@@ -53,7 +62,9 @@ namespace Hotel_Web_app_Projet.Controllers
         //Logout
         public ActionResult Logout()
         {
+            HttpContext.Session.Remove("account");
             HttpContext.Session.Remove("user");
+
             return RedirectToAction("Index", "home");
         }
 
