@@ -38,6 +38,7 @@ namespace Hotel_Web_app_Projet.Controllers
             user = context.Users.Where(u => u.AccountId == account.AccountId).FirstOrDefault();
 
             HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
+            ViewBag.error = "Check repass again!";
             return RedirectToAction("UserDetails", "User");
         }
 
@@ -47,7 +48,7 @@ namespace Hotel_Web_app_Projet.Controllers
         }
 
         [HttpPost] 
-        public IActionResult changePass(string pass, string newPass, string reNewPass)
+        public IActionResult ChangePassword(string pass, string newPass, string reNewPass)
         {
             Account account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("account"));
             User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("user"));
@@ -56,15 +57,19 @@ namespace Hotel_Web_app_Projet.Controllers
             if(data.Password != pass)
             {
                 ViewBag.error = "Wrong password!";
-                
-                return RedirectToAction("ChangePassword", "User");
+                HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
+                return ChangePassword();
             } 
             if(newPass != reNewPass)
             {
                 ViewBag.error = "Check repass again!";
-                
-                return RedirectToAction("ChangePassword", "User");
+                HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
+                return ChangePassword();
             }
+            data.Password = newPass;
+            context.SaveChanges();
+            user = context.Users.Where(u => u.AccountId == account.AccountId).FirstOrDefault();
+            HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
             return RedirectToAction("ChangePassword", "User");
         }
 
