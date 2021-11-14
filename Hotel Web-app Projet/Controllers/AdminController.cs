@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Hotel_Web_app_Projet.Controllers
 {
@@ -16,9 +17,23 @@ namespace Hotel_Web_app_Projet.Controllers
             ViewBag.Accounts = context.Accounts.ToList();
             return base.View();
         }
-        public IActionResult UserManagement()
+        public IActionResult UserManagement(int page)
         {
-            ViewBag.UserList = context.Users.ToList();
+            //Pagination
+            int pageSize = 10;
+            decimal pageNumber = Math.Ceiling((decimal)context.Users.ToList().Count / pageSize);
+
+            if (page <= 1)
+            {
+                page = 1;
+            }
+            else if (page >= pageNumber)
+            {
+                page = (int)pageNumber;
+            }
+            ViewBag.UserList = context.Users.ToPagedList(page, pageSize);
+            ViewBag.Pages = pageNumber;
+            ViewBag.CurrentPage = page;
             return View();
         }
         [HttpPost]
@@ -45,14 +60,42 @@ namespace Hotel_Web_app_Projet.Controllers
             return RedirectToAction("UserManagement","Admin");
         }
 
-        public IActionResult RoomManagement()
+        public IActionResult RoomManagement(int page)
         {
-            ViewBag.RoomList = context.Rooms.ToList();
+            //Pagination
+            int pageSize = 10;
+            decimal pageNumber = Math.Ceiling((decimal)context.Rooms.ToList().Count / pageSize);
+
+            if (page <= 1)
+            {
+                page = 1;
+            }
+            else if (page >= pageNumber)
+            {
+                page = (int)pageNumber;
+            }
+            ViewBag.RoomList = context.Rooms.ToPagedList(page, pageSize);
+            ViewBag.Pages = pageNumber;
+            ViewBag.CurrentPage = page;
             return View();
         }
-        public IActionResult BookingManagement()
+        public IActionResult BookingManagement(int page)
         {
-            ViewBag.BookingList = context.Bookings.ToList();
+            //Pagination
+            int pageSize = 10;
+            decimal pageNumber = Math.Ceiling((decimal)context.Bookings.ToList().Count / pageSize);
+
+            if (page <= 1)
+            {
+                page = 1;
+            }
+            else if (page >= pageNumber)
+            {
+                page = (int)pageNumber;
+            }
+            ViewBag.BookingList = context.Bookings.ToPagedList(page, pageSize);
+            ViewBag.Pages = pageNumber;
+            ViewBag.CurrentPage = page;
             return View();
         }
     }
