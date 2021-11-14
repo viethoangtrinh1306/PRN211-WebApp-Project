@@ -83,9 +83,9 @@ namespace Hotel_Web_app_Projet.Controllers
         {
             var bookList = (from b in context.Bookings
                             where b.RoomId == roomId
-                            && ((b.DateFrom < dateIn && dateIn < b.DateFrom)
+                            && ((b.DateFrom <= dateIn && dateIn <= b.DateFrom)
                             || (dateIn <= b.DateFrom && b.DateTo <= dateOut)
-                            || (b.DateFrom <= dateOut && b.DateTo > dateOut))
+                            || (b.DateFrom <= dateOut && b.DateTo >= dateOut))
                             select b).ToList();
             if (bookList.Count == 0)
             {
@@ -161,7 +161,15 @@ namespace Hotel_Web_app_Projet.Controllers
                 DateTime bookingDate = DateTime.Now;
                 Room r = context.Rooms.Find(roomID);
                 int guest = context.RoomTypes.Find(r.TypeId).Capacity;
-                double cost = (dateOut - dateIn).Days * context.RoomTypes.Find(r.TypeId).Price;
+                double cost;
+                if (dateOut == dateIn)
+                {
+                    cost = context.RoomTypes.Find(r.TypeId).Price;
+                }
+                else
+                {
+                    cost = (dateOut - dateIn).Days * context.RoomTypes.Find(r.TypeId).Price;
+                }
 
                 Booking booking = new Booking
                 {

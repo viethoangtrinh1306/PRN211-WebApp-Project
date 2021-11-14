@@ -164,7 +164,7 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">User List</h4>
+                        <h4 class="page-title">Users Management</h4>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -183,10 +183,7 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             <div class="row">
-                                <h3 class="col-sm-10 box-title">Room list</h3>
-                                <div class="col-sm-2">
-                                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal" style="font-size:16px"><span style="margin: 5px auto">Add User</span></a>
-                                </div>
+                                <h3 class="col-sm-10 box-title">Users list</h3>
                             </div>
                             <div class="table-responsive">
                                 <table class="table text-nowrap">
@@ -198,8 +195,7 @@
                                             <th class="border-top-0">Date of birth</th>
                                             <th class="border-top-0">Phone</th>
                                             <th class="border-top-0">Email</th>
-                                            <th class="border-top-0">Account ID</th>
-                                            <th class="border-top-0">Edit/Delete</th>
+                                            <th class="border-top-0">Account Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -216,115 +212,39 @@
                                                 {
                                                     <td>Female</td>
                                                 }
-                                                <td>@item.Dob.ToShortDateString()</td>
+                                                <td>@item.Dob.ToString("dd-MM-yyyy")</td>
                                                 <td>@item.Phone</td>
                                                 <td>@item.Email</td>
-                                                <td>@item.AccountId</td>
                                                 <td>
-                                                    <a href="#editUserModal-@item.UserId" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                                    <a href="#deleteUserModal-@item.UserId" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                    <form action="ChangeAccountStatus" method="post" name="change_status">
+                                                        <div class="form-check form-switch">
+                                                            @if (item.Account.Status)
+                                                            {
+                                                                <input class="form-check-input" type="checkbox" name="status" onchange="this.form.submit();" checked>
+                                                            }
+                                                            else
+                                                            {
+                                                                <input class="form-check-input" type="checkbox" name="status" onchange="this.form.submit();">
+                                                            }
+                                                            <label class="form-check-label">Active</label>
+                                                        </div>
+                                                        <input type="hidden" name="accountId" value="@item.AccountId"/>
+                                                    </form>
+                                                    <style>
+                                                        .form-check-input:checked {
+                                                            background-color: #55ce64;
+                                                            border-color: none;
+                                                        }
+
+                                                        .form-check-input {
+                                                            background-color: white;
+                                                        }
+                                                    </style>
                                                 </td>
                                             </tr>
-                                            <div id="editUserModal-@item.UserId" class="modal fade">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <form>
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Edit User</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label>User Id</label>
-                                                                    <input type="text" class="form-control" value="@item.UserId" readonly>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Name</label>
-                                                                    <input type="text" class="form-control" value="@item.Name" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Gender</label>
-                                                                    @if (@item.Gender == true)
-                                                                    {<input type="text" class="form-control" value="Male" required>}
-                                                                    else
-                                                                    {<input type="text" class="form-control" value="Female" required>}
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Date of birth</label>
-                                                                    <input type="text" class="form-control" value="@item.Dob.ToShortDateString()" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Phone</label>
-                                                                    <input type="text" class="form-control" value="@item.Phone" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Email</label>
-                                                                    <input type="text" class="form-control" value="@item.Email" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Account Id</label>
-                                                                    <input type="text" class="form-control" value="@item.AccountId" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                                                <input type="submit" class="btn btn-info" value="Save">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="deleteUserModal-@item.UserId" class="modal fade">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <form>
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Delete User</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p>Are you sure you want to delete this User?</p>
-                                                                <p class="text-warning"><small>This action cannot be undone.</small></p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                                                <input type="submit" class="btn btn-danger" value="Delete">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         }
                                     </tbody>
                                 </table>
-                                <div id="addEmployeeModal" class="modal fade">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form>
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Add Room</h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label>Name</label>
-                                                        <input type="text" class="form-control" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Position</label>
-                                                        <input type="email" class="form-control" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>TypeId</label>
-                                                        <textarea class="form-control" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                                    <input type="submit" class="btn btn-success" value="Add">
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
