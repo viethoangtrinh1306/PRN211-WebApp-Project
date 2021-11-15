@@ -75,6 +75,7 @@ namespace Hotel_Web_app_Projet.Controllers
             {
                 status = false;
             }
+
             var account = context.Accounts.SingleOrDefault(c => c.AccountId == accountId);
             if (account != null)
             {

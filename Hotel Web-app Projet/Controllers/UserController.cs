@@ -77,8 +77,13 @@ namespace Hotel_Web_app_Projet.Controllers
         {
             Account account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("account"));
             User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("user"));
-
-            ViewBag.BookingList = context.Bookings.Where(b => b.UserId == user.UserId).ToList();
+            if (context.Bookings.Where(b => b.UserId == user.UserId).ToList().Count == 0)
+            {
+                ViewBag.Empty = "No room booked yet";
+            }
+            
+                ViewBag.BookingList = context.Bookings.Where(b => b.UserId == user.UserId).ToList();
+            
             return View();
         }
     }

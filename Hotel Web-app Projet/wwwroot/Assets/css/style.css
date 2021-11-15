@@ -2023,7 +2023,7 @@ ol {
 }
 @media only screen and (max-width: 991px) {
   .top-nav {
-    display: none;
+    display: block;
   }
   .menu-item .nav-menu {
     display: none;
@@ -2308,6 +2308,9 @@ ol {
 /* Tablet Device: 768px */
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .top-nav {
+        display: block;
+    }
   .testimonial-slider.owl-carousel .owl-nav button {
     left: -30px;
   }
@@ -2324,6 +2327,9 @@ ol {
 /* Large Mobile: 480px */
 
 @media only screen and (max-width: 767px) {
+    .top-nav {
+        display: block;
+    }
   .testimonial-slider.owl-carousel .owl-nav {
     display: none;
   }
@@ -2362,6 +2368,9 @@ ol {
 /* Small Mobile: 320px */
 
 @media only screen and (max-width: 479px) {
+    .top-nav {
+        display: block;
+    }
   .footer-section .copyright-option ul li {
     margin-bottom: 5px;
   }
