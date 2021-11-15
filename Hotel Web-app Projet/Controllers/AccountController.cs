@@ -48,7 +48,7 @@ namespace Hotel_Web_app_Projet.Controllers
                     User user = context.Users.Where(u => u.AccountId == account.AccountId).FirstOrDefault();
                     HttpContext.Session.SetString("account", JsonConvert.SerializeObject(account));
                     HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
-                    return RedirectToAction("UserManagement", "Admin");
+                    return RedirectToAction("AdminDashboard", "Admin");
                 }
                 else
                 {
@@ -62,7 +62,9 @@ namespace Hotel_Web_app_Projet.Controllers
         //Logout
         public ActionResult Logout()
         {
+            HttpContext.Session.Remove("account");
             HttpContext.Session.Remove("user");
+
             return RedirectToAction("Index", "home");
         }
 

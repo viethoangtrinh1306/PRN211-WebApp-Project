@@ -12,7 +12,7 @@ namespace Hotel_Web_app_Projet.Controllers
 {
     public class AdminController : Controller
     {
-      
+
         HotelWebsiteContext context = new();
         public override ViewResult View()
         {
@@ -21,23 +21,33 @@ namespace Hotel_Web_app_Projet.Controllers
             ViewBag.Accounts = context.Accounts.ToList();
             return base.View();
         }
-
         public bool IsAdmin()
         {
             Account account = new Account();
+            
             if (HttpContext.Session.GetString("account") != null)
             {
                 account = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("account"));
             }
-            if (account.AuthorId != 2)
+            if (account!= null && account.AuthorId != 2)
             {
                 return false;
             }
-            else { return true; }
+            else 
+            { 
+                return true; 
+            }
+        }
+        public IActionResult AdminDashboard()
+        {
+            ViewBag.TotalUsers = context.Users.ToList().Count;
+            ViewBag.TotalRooms = context.Rooms.ToList().Count;
+            ViewBag.Revenue = context.Bookings.ToList().Sum(b => b.Total);
+            return View();
         }
         public IActionResult UserManagement(int page)
         {
-            if (IsAdmin())
+            if (IsAdmin()) 
             {
                 //Pagination
                 int pageSize = 10;
@@ -83,7 +93,7 @@ namespace Hotel_Web_app_Projet.Controllers
                 context.SaveChanges();
             }
             ViewBag.UserList = context.Users.ToList();
-            return RedirectToAction("UserManagement","Admin");
+            return RedirectToAction("UserManagement", "Admin");
         }
 
         [HttpGet]
@@ -134,7 +144,7 @@ namespace Hotel_Web_app_Projet.Controllers
                     context.SaveChanges();
                     TempData["message"] = "Add successfully!";
                 }
-                else if(action == "edit")
+                else if (action == "edit")
                 {
                     int roomId = int.Parse(Request.Form["roomId"]);
                     Room room = context.Rooms.SingleOrDefault(c => c.RoomId == roomId);
@@ -148,7 +158,7 @@ namespace Hotel_Web_app_Projet.Controllers
                         TempData["message"] = "Edit successfully!";
                     }
                 }
-                else if(action == "delete")
+                else if (action == "delete")
                 {
                     int roomId = int.Parse(Request.Form["roomId"]);
                     Room room = context.Rooms.SingleOrDefault(c => c.RoomId == roomId);

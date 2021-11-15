@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Filters\**" />
+    <Content Remove="Filters\**" />
+    <EmbeddedResource Remove="Filters\**" />
+    <None Remove="Filters\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\Assets\img\about\about-1.jpg" />
     <None Include="wwwroot\Assets\img\about\about-2.jpg" />
     <None Include="wwwroot\Assets\img\about\about-p1.jpg" />
@@ -88,7 +95,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Filters\" />
     <Folder Include="wwwroot\Admin Assets\" />
   </ItemGroup>
 

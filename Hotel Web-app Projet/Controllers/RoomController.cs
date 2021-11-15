@@ -108,6 +108,7 @@ namespace Hotel_Web_app_Projet.Controllers
             int roomID = int.Parse(Request.Form["roomID"]);
             DateTime dateIn = DateTime.Parse(String.Format("{0}", Request.Form["dateIn"]));
             DateTime dateOut = DateTime.Parse(String.Format("{0}", Request.Form["dateOut"]));
+            
 
             if ((dateIn.CompareTo(dateOut)) > 0)
             {
@@ -118,13 +119,12 @@ namespace Hotel_Web_app_Projet.Controllers
             { 
                 if (checkRoom(dateIn,dateOut,roomID))
                 {
-                    TempData["Message"] = "Available room!";      
+                    TempData["Message"] = "Available room!";
                 }
                 else
                 {
-                    TempData["Message"] = "Room not available!";
+                    TempData["Error"] = "Room not available!";
                 }
-
             }
             return RedirectToAction("RoomDetails", "room", new { roomId = roomID });
         }
